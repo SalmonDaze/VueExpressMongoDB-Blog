@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="navbar">
     <el-row id='navbar'>
       <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
@@ -17,7 +17,7 @@
 <script>
 // @ is an alias to /src
 export default {
-  name: 'home',
+  name: 'navbar',
   components: {
   }
 }
