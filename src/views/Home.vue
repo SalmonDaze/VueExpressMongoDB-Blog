@@ -1,24 +1,16 @@
 <template>
   <div class="home">
-    <el-row id='navbar'>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light">
-        <router-link :to="{path:'/register'}">注册</router-link>
-        </div></el-col>
-    </el-row>
-    <br/><br><br><br>
+    <navbar></navbar>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import navbar from '../components/navbar.vue'
 export default {
   name: 'home',
   components: {
+    navbar
   }
 }
 </script>

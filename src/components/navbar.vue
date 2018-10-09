@@ -8,9 +8,9 @@
       <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
         <router-link :to="{path:'/register'}">注册</router-link>
+        <router-link :to="{path:'/login'}">登录</router-link>
         </div></el-col>
     </el-row>
-    <br/><br><br><br>
   </div>
 </template>
 
