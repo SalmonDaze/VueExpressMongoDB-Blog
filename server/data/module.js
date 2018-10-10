@@ -7,6 +7,7 @@ let userSchema = new mongoose.Schema({
     password: String,
     create_at: String,
     comment: Number,
+    isAdmin: Boolean,
 })
 Model = {
         player: mongoose.model('player',userSchema)

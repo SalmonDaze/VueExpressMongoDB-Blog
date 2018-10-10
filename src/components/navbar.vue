@@ -1,20 +1,12 @@
 <template>
   <div class="navbar">
     <el-row id='navbar'>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="4"><div class="grid-content bg-purple">首页</div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
       <el-col :span="4">
-        <div class="grid-content bg-purple-light" v-if='!userCookie'>
-          <router-link :to="{path:'/register'}">注册</router-link>
-          <router-link :to="{path:'/login'}">登录</router-link>
-        </div>
-        <div class="grid-content bg-purple-light" v-else>
-          <router-link :to="{name:'userPage',params:{id:userCookie.username}}">{{userCookie.username}}</router-link>
-          <a @click='logout'>登出</a>
-        </div>
       </el-col>
     </el-row>
   </div>

@@ -30,6 +30,7 @@ router.post('/register',(req,res,next)=>{
                 password:password,
                 create_at:`${createYear}${createMonth+1}${createDay}`,
                 comment:0,
+                isAdmin:false,
             }).then(()=>{
                 res.json({
                     code:200,
@@ -55,7 +56,8 @@ router.post('/login',(req,res,next)=>{
                 message:'用户名或者密码错误'
             })
         }else{
-            res.cookie('userInfo',userInfo,{maxAge:6000000})
+            let userInfomation = result
+            res.cookie('userInfo',userInfomation,{maxAge:6000000})
             res.json({
                 code:200,
                 message:'登录成功'
