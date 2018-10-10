@@ -88,6 +88,11 @@ export default {
       .user_Info{
         background: white;
         border-radius: 5px;
+          &:hover{
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px 0 rgba(24, 44, 79, 0.15);
+            transition: 0.5s;
+          }
           .hr{
             width:82%;
             height: 1px;
@@ -109,6 +114,7 @@ export default {
             a{
               color:#67C23A;
               text-decoration: none;
+              cursor:pointer;
             }
           }
         }
