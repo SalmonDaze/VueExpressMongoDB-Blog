@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import register from './views/register.vue'
 import login from './views/login.vue'
-
+import user from './views/userPage.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +23,10 @@ export default new Router({
       path:'/login',
       name:'login',
       component:login
+    },{
+      path:'/user/:id',
+      name:'userPage',
+      component:user
     }
   ]
 })

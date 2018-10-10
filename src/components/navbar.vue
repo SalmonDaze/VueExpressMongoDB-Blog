@@ -12,14 +12,13 @@
           <router-link :to="{path:'/login'}">登录</router-link>
         </div>
         <div class="grid-content bg-purple-light" v-else>
-          <router-link :to="{path:'/register'}">{{userCookie.username}}</router-link>
+          <router-link :to="{name:'userPage',params:{id:userCookie.username}}">{{userCookie.username}}</router-link>
           <a @click='logout'>登出</a>
         </div>
       </el-col>
     </el-row>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
 export default {
