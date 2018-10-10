@@ -21,9 +21,15 @@ router.post('/register',(req,res,next)=>{
             })
             return  
         }else{
+            let createDate = new Date()
+            let createYear = createDate.getFullYear()
+            let createMonth = createDate.getMonth()
+            let createDay = createDate.getDate()
             Model.player.create({
                 username:username,
-                password:password
+                password:password,
+                create_at:`${createYear}${createMonth+1}${createDay}`,
+                comment:0,
             }).then(()=>{
                 res.json({
                     code:200,
@@ -38,6 +44,10 @@ router.post('/login',(req,res,next)=>{
     let user = JSON.parse(Object.keys(req.body)[0])
     let username = user.username
     let password = user.password
+    let userInfo = {
+        username: username,
+        password: password,
+    }
     Model.player.findOne({username:username,password:password}).then((result)=>{
         if(!result){
             res.json({
@@ -45,11 +55,32 @@ router.post('/login',(req,res,next)=>{
                 message:'用户名或者密码错误'
             })
         }else{
+            res.cookie('userInfo',userInfo,{maxAge:6000000})
             res.json({
                 code:200,
                 message:'登录成功'
             })
         }
+    })
+})
+router.get('/checkLogin',(req,res,next)=>{
+    if(req.cookies.userInfo){
+        res.json({
+            code:200,
+            message:req.cookies.userInfo
+        })
+    }else{
+        res.json({
+            code:1,
+            message:'Not login'
+        })
+    }
+})
+router.post('/logout',(req,res,next)=>{
+    res.clearCookie('userInfo')
+    res.json({
+        code:200,
+        message:'登出成功'
     })
 })
 module.exports = router

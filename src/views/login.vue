@@ -43,6 +43,7 @@ export default {
       showError:false,
       login_username:'',
       login_password:'',
+      userCookie:'',
     }
   },
   methods:{
@@ -68,6 +69,7 @@ export default {
         return
       }else{
         this.msgs = res.data.message
+        this.userCookie = res.data.userInfo
         this.$message({
           message: '登录成功！页面将于3秒后跳转',
           type: 'success'

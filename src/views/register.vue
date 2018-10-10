@@ -89,7 +89,7 @@ export default {
         setTimeout(()=>{this.$router.push({path:'/'})},3000)
       }
         }catch(err){
-          console.log('Server Error Message :' + err)
+          console.log('Server Error :' + err)
         }
     },
   }

@@ -11,6 +11,22 @@ export default {
   name: 'home',
   components: {
     navbar
+  },
+  data(){
+    return{
+      userCookie:'',
+    }
+  },
+  created(){
+    this.$http({
+      method:'GET',
+      withCredentials: true,
+      url:'http://localhost:3000/checkLogin'
+    }).then((res)=>{
+      if(res.data.code==200){
+        this.userCookie = res.data.message
+      }
+    })
   }
 }
 </script>

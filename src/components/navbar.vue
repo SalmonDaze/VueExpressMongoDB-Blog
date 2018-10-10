@@ -6,10 +6,16 @@
       <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light">
-        <router-link :to="{path:'/register'}">注册</router-link>
-        <router-link :to="{path:'/login'}">登录</router-link>
-        </div></el-col>
+      <el-col :span="4">
+        <div class="grid-content bg-purple-light" v-if='!userCookie'>
+          <router-link :to="{path:'/register'}">注册</router-link>
+          <router-link :to="{path:'/login'}">登录</router-link>
+        </div>
+        <div class="grid-content bg-purple-light" v-else>
+          <router-link :to="{path:'/register'}">{{userCookie.username}}</router-link>
+          <a @click='logout'>登出</a>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -18,7 +24,34 @@
 // @ is an alias to /src
 export default {
   name: 'navbar',
+  data(){
+    return{
+      userCookie:'',
+    }
+  },
   components: {
+  },
+  created(){
+    this.$http({
+      method:'GET',
+      withCredentials: true,
+      url:'http://localhost:3000/checkLogin'
+    }).then((res)=>{
+      if(res.data.code==200){
+        this.userCookie = res.data.message
+      }
+    })
+  },
+  methods:{
+    logout(){
+      this.$http({
+        method:'POST',
+        withCredentials:true,
+        url:'http://localhost:3000/logout'
+      }).then((res)=>{
+        this.userCookie = !this.userCookie
+      })
+    }
   }
 }
 </script>
