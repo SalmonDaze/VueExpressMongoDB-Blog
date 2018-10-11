@@ -85,4 +85,11 @@ router.post('/logout',(req,res,next)=>{
         message:'登出成功'
     })
 })
+router.get('/getArticle',(req,res,next)=>{
+    let article = []
+    Model.article.find({}).then(articlelist=>{
+        let article = articlelist.data
+        res.json(article)
+    })
+})
 module.exports = router

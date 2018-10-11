@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const index = require('./routes/index.js')
+const admin = require('./routes/admin.js')
 const app = express()
 
 app.all('*', function(req, res, next) {
@@ -19,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 app.use('/',index)
+app.use('/admin',admin)
+
 app.listen('3000',(req,res)=>{
     console.log('服务器运行在localhost:3000......')
 })
