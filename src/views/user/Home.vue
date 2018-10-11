@@ -31,7 +31,7 @@
 
 <script>
 // @ is an alias to /src
-import navbar from '../components/navbar.vue'
+import navbar from '../../components/navbar.vue'
 export default {
   name: 'home',
   components: {
@@ -59,7 +59,7 @@ export default {
         method:'POST',
         withCredentials:true,
         url:'http://localhost:3000/logout'
-      }).then((res)=>{
+      }).then(()=>{
         this.userCookie = !this.userCookie
       })
     }

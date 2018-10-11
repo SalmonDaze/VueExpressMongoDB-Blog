@@ -9,7 +9,16 @@ let userSchema = new mongoose.Schema({
     comment: Number,
     isAdmin: Boolean,
 })
+let article = new mongoose.Schema({
+    title: String,
+    content: String,
+    create_at: String,
+    comment: Array,
+    views: Number,
+    like: Number,
+})
 Model = {
-        player: mongoose.model('player',userSchema)
+        player: mongoose.model('player',userSchema),
+        article: mongoose.model('article',article)
 }
 module.exports = Model
