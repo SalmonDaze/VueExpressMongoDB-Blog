@@ -12,13 +12,34 @@ let userSchema = new mongoose.Schema({
 let article = new mongoose.Schema({
     title: String,
     content: String,
-    create_at: String,
-    comment: Array,
-    views: Number,
-    like: Number,
+    category: String,
+    author: {
+        type: String,
+        default:'admin',
+    },
+    create_at: {
+        type: String,
+        default: Date.now()
+    },
+    comment: {
+        type: Array,
+        default: []
+    },
+    views: {
+        type: Number,
+        default: 0,
+    },
+    like: {
+        type: Number,
+        default: 0,
+    }
+})
+let category = new mongoose.Schema({
+    title: String,
 })
 Model = {
         player: mongoose.model('player',userSchema),
-        article: mongoose.model('article',article)
+        article: mongoose.model('article',article),
+        category: mongoose.model('category',category),
 }
 module.exports = Model
