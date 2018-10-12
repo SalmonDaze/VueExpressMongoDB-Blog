@@ -8,7 +8,7 @@
 </template>
 <script>
 export default {
-    name:'admin_info'
+    name:'adminInfo'
 }
 </script>
 <style lang="scss" scoped>
