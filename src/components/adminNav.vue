@@ -39,7 +39,7 @@
             height: 100vh;
             background: rgb(87, 87, 87);
             li:first-child{
-                padding-top:1   0px;
+                padding-top:10px;
             }
             li{
                 height:50px;
@@ -50,7 +50,7 @@
                     cursor: pointer;
                 }
                 text-align: left;
-                padding-top:18px;
+                padding-top:20px;
                 padding-left:40px;
                 }
             }
