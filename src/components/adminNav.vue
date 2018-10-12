@@ -38,6 +38,9 @@
     }
 </script>
 <style lang="scss" scoped>
+    a{
+        text-decoration:none;
+    }
     #admin_nav{
         .nav_container{
             position:fixed;

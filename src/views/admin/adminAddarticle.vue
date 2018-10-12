@@ -10,7 +10,6 @@
     
 </template>
 <script>
-import Quill from 'quill'
 export default{
     name:'Addarticle',
     data(){
@@ -21,12 +20,7 @@ export default{
     methods:{
 
     },
-    created(){
-        var quill = new Quill('#editor', {
-            modules: { toolbar: true },
-            theme: 'snow'
-        })
-    }
+    created(){}
 }
 </script>
 <style lang="scss" scoped>
