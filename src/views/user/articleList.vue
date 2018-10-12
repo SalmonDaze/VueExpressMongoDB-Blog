@@ -13,6 +13,11 @@
                 <el-footer class='article_info'>{{article.create_at}}</el-footer>
             </el-container>
         </div>
+        <div>
+            <input type="text" v-model='title'>
+            <input type="text" v-model='content'>
+            <button @click='addArticle()'>发布</button>
+        </div>
     </div>
 </template>
 

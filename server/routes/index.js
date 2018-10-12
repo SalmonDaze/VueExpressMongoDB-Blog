@@ -88,7 +88,7 @@ router.post('/logout',(req,res,next)=>{
 router.get('/getArticle',(req,res,next)=>{
     let article = []
     Model.article.find({}).then(articlelist=>{
-        let article = articlelist.data
+        let article = articlelist
         res.json(article)
     })
 })

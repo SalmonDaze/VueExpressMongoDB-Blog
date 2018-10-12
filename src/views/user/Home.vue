@@ -42,7 +42,7 @@
               <span>当前用户组为{{userCookie.isAdmin ? '管理员' : '普通用户'}}</span>
               <br/>
               <span><router-link :to="{name:'userPage',params:{id:userCookie.username}}">个人页面</router-link></span>
-              <span v-if='userCookie.isAdmin' style='margin-left:30px;'><router-link :to='{}'>管理页面</router-link></span>
+              <span v-if='userCookie.isAdmin' style='margin-left:30px;'><router-link :to="{path:'/admin'}">管理页面</router-link></span>
               <span><a style='margin-left:30px;' @click='logout'>用户登出</a></span>
             </el-main>
           </el-container>
@@ -84,6 +84,7 @@ export default {
     })
     this.$http.get('http://localhost:3000/getArticle').then((res)=>{
       this.articleList = res.data
+      console.log(res.data)
     })
   },
   methods:{
@@ -102,6 +103,7 @@ export default {
 <style lang="scss" scoped>
   .home{
     background: rgb(230,230,230);
+    min-height:500px;
       .grid{
       margin-top:50px;
       .user_Info{

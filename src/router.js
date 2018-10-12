@@ -4,6 +4,8 @@ import Home from './views/user/Home.vue'
 import register from './views/registe/register.vue'
 import login from './views/registe/login.vue'
 import user from './views/user/userPage.vue'
+import articleList from './views/user/articleList.vue'
+import admin from './views/admin/adminIndex.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +29,14 @@ export default new Router({
       path:'/user/:id',
       name:'userPage',
       component:user
+    },{
+      path:'/addArticle',
+      name:'addArticle',
+      component:articleList
+    },{
+      path:'/admin',
+      name:'admin',
+      component:admin
     }
   ]
 })

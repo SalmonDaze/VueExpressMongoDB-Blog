@@ -5,7 +5,7 @@
       <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="4"><div class="grid-content bg-purple"><router-link :to="{path:'/addArticle'}">发布文章</router-link></div></el-col>
       <el-col :span="4">
       </el-col>
     </el-row>
@@ -41,10 +41,10 @@ export default {
         url:'http://localhost:3000/logout'
       }).then(()=>{
         this.userCookie = !this.userCookie
-      })
+        })
+      }
     }
   }
-}
 </script>
 <style lang="scss" scoped>
   #navbar{
