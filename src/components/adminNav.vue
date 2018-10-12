@@ -1,10 +1,12 @@
 <template>
     <div id='admin_nav'>
         <ul class='nav_container'>
+            <router-link :to="{name:'admin_info'}">
             <li>
                 <i class='el-icon-menu'></i>
                 <span style='margin-left:20px;'>首页</span>
             </li>
+            </router-link>
             <li>
                 <i class='el-icon-edit'></i>
                 <span style='margin-left:20px;'>发布文章</span>

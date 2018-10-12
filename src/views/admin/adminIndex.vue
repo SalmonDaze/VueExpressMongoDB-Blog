@@ -7,7 +7,11 @@
                     <adminNav class='admin_nav'></adminNav>
                 </div>
             </el-col>
-            <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+            <el-col :span="12">
+                <div>
+                    <router-view></router-view>
+                </div>
+            </el-col>
         </el-row>
     </div>
 </template>

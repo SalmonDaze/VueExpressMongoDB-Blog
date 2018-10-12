@@ -6,6 +6,8 @@ import login from './views/registe/login.vue'
 import user from './views/user/userPage.vue'
 import articleList from './views/user/articleList.vue'
 import admin from './views/admin/adminIndex.vue'
+import admin_info from './views/admin/admin_info.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -36,7 +38,14 @@ export default new Router({
     },{
       path:'/admin',
       name:'admin',
-      component:admin
+      component:admin,
+      children:[
+        {
+          path:'info',
+          name:'admin_info',
+          component:admin_info,
+        }
+      ]
     }
   ]
 })
