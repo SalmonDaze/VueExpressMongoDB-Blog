@@ -1,12 +1,12 @@
 <template>
   <div class="navbar">
     <el-row id='navbar'>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple"><router-link :to="{path:'/addArticle'}">发布文章</router-link></div></el-col>
-      <el-col :span="4">
+      <el-col :span="4" class='nav_header'>
+        <slot name='header'></slot>
+      </el-col>
+      <el-col :span="16"><div class="grid-content bg-purple-light">&nbsp;</div></el-col>
+      <el-col :span="4" class='nav_footer'>
+        <slot name='footer'></slot>
       </el-col>
     </el-row>
   </div>
@@ -50,6 +50,16 @@ export default {
   #navbar{
     height: 45px;
     background-color:white;
+    .nav_header{
+      font-size:1.2em;
+      padding-top:10px;
+    }
+    .nav_footer{
+      a{
+        text-decoration: none;
+        color:#409EFF;
+      }
+    }
   }
   a{
     margin-top:100px;

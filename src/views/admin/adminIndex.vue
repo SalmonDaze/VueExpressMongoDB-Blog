@@ -1,19 +1,23 @@
 <template>
     <div id='admin_container'>
-        <navbar></navbar>
-        <el-row>
-            <el-col :span="4">
-                <div class="sidebar">
-                    <adminNav class='admin_nav'></adminNav>
-                </div>
-            </el-col>
-            <el-col :span="12">
-                <div>
-                    <router-view></router-view>
-                </div>
-            </el-col>
-        </el-row>
+        <el-container>
+            <el-header>
+                <navbar>
+                    <template slot='header'>
+                        <span><img src='../../assets/monisha.png' style='height:40px;vertical-align:middle;margin-right:10px;'>后台系统</span>
+                    </template>
+                    <template slot='footer'>
+                        <el-button type="primary" plain class='back' @click="$router.push('/')">返回主页</el-button>
+                    </template>
+                </navbar>
+            </el-header>
+            <el-container>
+                <el-aside width="200px"><adminNav class='admin_nav'></adminNav></el-aside>
+                <el-main><router-view></router-view></el-main>
+            </el-container>
+        </el-container>
     </div>
+    
 </template>
 <script>
 import adminNav from '../../components/adminNav.vue'
@@ -23,18 +27,20 @@ export default{
     components:{
         adminNav,
         navbar
-    }        
+    },
+    methods:{
+
+    }
 }
 </script>
 <style lang="scss" scoped>
-    .sidebar{
+    .back{
+        margin-top:15px;
     }
     .admin_nav{
-        position: fixed;
-        left:0;
-        top:20;
-        width:13%;
-        z-index:999;
     }
-    
+    #admin_container{
+        .admin_right{
+        }
+    }
 </style>

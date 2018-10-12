@@ -38,6 +38,8 @@
 <style lang="scss" scoped>
     #admin_nav{
         .nav_container{
+            position:fixed;
+            width:18%;
             height: 100vh;
             background: rgb(87, 87, 87);
             li:first-child{

@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <navbar></navbar>
+    <navbar>
+      <template slot='header'>
+        <span><img src='../../assets/reimu.png' style='height:35px;vertical-align:middle;margin-right:10px;'>Bad Apple!</span>
+      </template>
+    </navbar>
     <el-row type="flex" class='grid'>
       <el-col :span="2"></el-col>
       <el-col :span="14">
