@@ -70,6 +70,7 @@ export default {
       }else{
         this.msgs = res.data.message
         this.userCookie = res.data.userInfo
+        this.$store.username = this.login_username
         this.$message({
           message: '登录成功！页面将于3秒后跳转',
           type: 'success'

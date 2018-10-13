@@ -1,7 +1,7 @@
 <template>
     <div id='admin_info'>
         <img src="../../assets/logo.png" alt="">
-        <p>本套博客系统技术栈：Express + Vue + Vue-router + SCSS + MongoDB + Socket.io</p>
+        <p>本套博客系统技术栈：Express + Vue + Vuex + Vue-Cli 3.0 + Vue-router + ElementUI + SCSS + MongoDB + Mongoose + Socket.io</p>
         <p>作者：SalmonDaze。</p>
         <p><a href='https://github.com/SalmonDaze   '>github主页</a></p>
     </div>

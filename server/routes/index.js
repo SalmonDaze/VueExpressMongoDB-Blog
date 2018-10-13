@@ -101,7 +101,6 @@ router.post('/addArticle',(req,res,next)=>{
     Model.article.create({
         title:article.title,
         content:article.content,
-        creat_at:new Date.now(),
         comment:[],
         like:0,
         views:0,

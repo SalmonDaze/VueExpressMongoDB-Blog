@@ -18,7 +18,7 @@
             <div class='article_list_content' v-for='article in articleList' :key='article._id'>
                 <el-container class='article'>
                     <el-header class='article_head'>{{article.title}}</el-header>
-                    <el-main class='article_content'>{{article.content}}</el-main>
+                    <el-main class='article_content' v-html='article.content'></el-main>
                     <el-footer class='article_info'>
                     <span>发布日期 {{article.create_at}}</span>
                     <span>  |  作者 {{article.author}}</span>

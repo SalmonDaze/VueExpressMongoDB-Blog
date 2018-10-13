@@ -2,7 +2,7 @@
     <div class='article_add'>
         <div class='text-input-area'>
             <div class='input_title'>
-                发布文章{{radio}}
+                发布文章
             </div>
             <div class="hr"></div>
             <br/>
@@ -20,10 +20,9 @@
                 {{tag.name}}
             </el-tag>
             <br/>
-            
             <div style="margin-top:30px;">
-                <el-radio v-model="radio" label="1">非匿名发布</el-radio>
-                <el-radio v-model="radio" label="2">匿名发布</el-radio>
+                <el-radio v-model="radio" :label="this.$store.username">非匿名发布</el-radio>
+                <el-radio v-model="radio" :label='null'>匿名发布</el-radio>
             </div>
             <br/>
             <el-input placeholder="请输入标题" v-model="title" clearable class='article_title'>
@@ -76,6 +75,7 @@ export default{
         async addArticle(){
             let title = this.title
             let content = this.content
+            let radio = this.radio
             try {
                 let res = await this.$http({
                 method:'POST',
@@ -83,14 +83,14 @@ export default{
                 data:{
                     title:title,
                     content:content,
-                    author
+                    author:radio
                 },
                 headers:{
                 'Content-Type' : 'application/x-www-form-urlencoded'
                 }
             })
             if(res.data.code == 1){
-                this.$message.error(`文章发布失败:${msg}`)
+                this.$message.error(`文章发布失败`)
                 return
             }else{
                 this.$message({
