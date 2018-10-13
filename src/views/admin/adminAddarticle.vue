@@ -2,7 +2,7 @@
     <div class='article_add'>
         <div class='text-input-area'>
             <div class='input_title'>
-                发布文章
+                发布文章{{radio}}
             </div>
             <div class="hr"></div>
             <br/>
@@ -19,7 +19,7 @@
             <el-tag v-for="tag in tags" :key="tag.name" :type="tag.type" closable @close='handleClose(tag)'>
                 {{tag.name}}
             </el-tag>
-            <br/>
+            <br/>  
             <div style="margin-top:30px;">
                 <el-radio v-model="radio" :label="this.$store.username">非匿名发布</el-radio>
                 <el-radio v-model="radio" :label='null'>匿名发布</el-radio>
@@ -29,7 +29,7 @@
             </el-input>
             <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption">
             </quill-editor>
-            <el-button type="primary" class='release' @click='addArticle()'>发布</el-button>
+            <el-button type="primary" class='release' @click='addArticle()' ref='releasebtn' :disabled="btnswitch">发布</el-button>
             <el-button type="warning" class='reset' @click='init()'>重置</el-button>
         </div>
     </div>
@@ -51,13 +51,14 @@ export default{
             tags_input:'',
             radio:null,
             bk:'',
+            btnswitch:false,
         }
     },
     methods:{
         addtags(){
             if( this.tags.length < 5 ){
                 this.tags_input === '' ? this.$message.error('标签不可为空') : 
-                this.tags_input.length > 5 ? this.$message.error('标签字数不可超过5') : 
+                this.tags_input.length > 5 ? this.$message.error('标签字数不可超过5个') : 
                 this.tags.push({name:this.tags_input,type:''})
                 this.tags_input = ''
             }else{
@@ -76,6 +77,13 @@ export default{
             let title = this.title
             let content = this.content
             let radio = this.radio
+            if( title == '' || content == '' ){
+                this.$message({
+                message: '文章内容不完整',
+                type: 'warning'
+                })
+                return
+            }
             try {
                 let res = await this.$http({
                 method:'POST',
@@ -97,6 +105,7 @@ export default{
                 message: '文章发布成功',
                 type: 'success'
                 })
+                this.btnswitch = true;
                 setTimeout(()=>{this.$router.push({path:'/'})},3000)
             }
                 }catch(err){
@@ -121,15 +130,13 @@ export default{
         }
         .article_catogory{
                 outline: none;
-                height: 30px;
+                height: 28px;
                 border-radius: 5px;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                text-align: center;
                 width:100px;
                 margin-bottom: 30px;
                 width:10%;
                 margin-left:0px;
+                border-color:skyblue;
         }
         width:100%;
         .el-dropdown{
