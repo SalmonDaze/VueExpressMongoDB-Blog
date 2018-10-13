@@ -78,6 +78,7 @@ router.get('/checkLogin',(req,res,next)=>{
         })
     }
 })
+
 router.post('/logout',(req,res,next)=>{
     res.clearCookie('userInfo')
     res.json({
@@ -85,11 +86,31 @@ router.post('/logout',(req,res,next)=>{
         message:'登出成功'
     })
 })
+
 router.get('/getArticle',(req,res,next)=>{
     let article = []
     Model.article.find({}).then(articlelist=>{
-        let article = articlelist
+        article = articlelist
         res.json(article)
+    })
+})
+
+router.post('/addArticle',(req,res,next)=>{
+    let article = JSON.parse(Object.keys(req.body)[0])
+    let author = article.author || 'anonymous'
+    Model.article.create({
+        title:article.title,
+        content:article.content,
+        creat_at:new Date.now(),
+        comment:[],
+        like:0,
+        views:0,
+        author:author,
+    }).then(()=>{
+        res.json({
+            code:200,
+            message:'文章发布成功'
+        })
     })
 })
 module.exports = router

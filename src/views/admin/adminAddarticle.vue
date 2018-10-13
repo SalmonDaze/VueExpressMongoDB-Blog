@@ -1,31 +1,174 @@
 <template>
     <div class='article_add'>
-        <div id="editor">
-  <p>Hello World!</p>
-  <p>Some initial <strong>bold</strong> text</p>
-  <p><br></p>
-</div>
-
+        <div class='text-input-area'>
+            <div class='input_title'>
+                发布文章{{radio}}
+            </div>
+            <div class="hr"></div>
+            <br/>
+            <span>文章板块：</span>
+            <select v-model='bk' class='article_catogory'>
+                <option value ="volvo">Volvo</option>
+                <option value ="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+            </select>
+            <br>
+            <span>文章标签：</span>
+            <input class="tags_input"  @keyup.enter='addtags()' v-model='tags_input'>
+            <el-tag v-for="tag in tags" :key="tag.name" :type="tag.type" closable @close='handleClose(tag)'>
+                {{tag.name}}
+            </el-tag>
+            <br/>
+            
+            <div style="margin-top:30px;">
+                <el-radio v-model="radio" label="1">非匿名发布</el-radio>
+                <el-radio v-model="radio" label="2">匿名发布</el-radio>
+            </div>
+            <br/>
+            <el-input placeholder="请输入标题" v-model="title" clearable class='article_title'>
+            </el-input>
+            <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption">
+            </quill-editor>
+            <el-button type="primary" class='release' @click='addArticle()'>发布</el-button>
+            <el-button type="warning" class='reset' @click='init()'>重置</el-button>
+        </div>
     </div>
-    
 </template>
 <script>
+const toolbarOptions = require('../../../static/config.js').toolbarOptions
 export default{
     name:'Addarticle',
     data(){
         return {
-
+            editorOption:{
+                modules:{
+                        toolbar:toolbarOptions
+                    },
+            },
+            content:'',
+            title:'',
+            tags:[],
+            tags_input:'',
+            radio:null,
+            bk:'',
         }
     },
     methods:{
-
+        addtags(){
+            if( this.tags.length < 5 ){
+                this.tags_input === '' ? this.$message.error('标签不可为空') : 
+                this.tags_input.length > 5 ? this.$message.error('标签字数不可超过5') : 
+                this.tags.push({name:this.tags_input,type:''})
+                this.tags_input = ''
+            }else{
+                this.$message.error('最多可放置5个标签');
+                this.tags_input = ''
+            }
+        },
+        handleClose(tag){
+            this.tags.splice(this.tags.indexOf(tag),1)
+        },
+        init(){
+            this.title = this.content = this.tags_input = this.bk = ''
+            this.tags = []
+        },
+        async addArticle(){
+            let title = this.title
+            let content = this.content
+            try {
+                let res = await this.$http({
+                method:'POST',
+                url:'http://localhost:3000/addArticle',
+                data:{
+                    title:title,
+                    content:content,
+                    author
+                },
+                headers:{
+                'Content-Type' : 'application/x-www-form-urlencoded'
+                }
+            })
+            if(res.data.code == 1){
+                this.$message.error(`文章发布失败:${msg}`)
+                return
+            }else{
+                this.$message({
+                message: '文章发布成功',
+                type: 'success'
+                })
+                setTimeout(()=>{this.$router.push({path:'/'})},3000)
+            }
+                }catch(err){
+                console.log('Server Error :' + err)
+            }
+        }
     },
     created(){}
 }
 </script>
 <style lang="scss" scoped>
     .article_add{
-        background: skyblue;
+        .input_title{
+            font-size:2em;
+        }
+        .hr{
+            margin-top:10px;
+            width:15%;
+            background:#67C23A;
+            height: 2px;
+            margin-bottom: 50px;
+        }
+        .article_catogory{
+                outline: none;
+                height: 30px;
+                border-radius: 5px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                text-align: center;
+                width:100px;
+                margin-bottom: 30px;
+                width:10%;
+                margin-left:0px;
+        }
         width:100%;
+        .el-dropdown{
+            &:hover{
+                cursor: pointer;
+            }
+            font-size:1em;
+            color:#409EFF;
+        }
+        .text-input-area{
+            width:70%;
+            margin-left:200px;
+            text-align: left;
+            height:90vh;
+            .el-tag{
+                margin-left:10px;
+            }
+            .tags_input{
+                width:10%;
+                height:25px;
+                border-radius:5px;
+                border:1px solid skyblue;
+            }
+            .quill-editor{
+                margin-top:30px;
+                height:300px;
+            }
+            .article_title{
+                width:50%;
+                margin-top:30px;
+            }
+            .release{
+                margin-top:80px;
+                width:100px;
+            }
+            .reset{
+                width:100px;
+                margin-left:30px;
+            }
+        }
     }
 </style>
