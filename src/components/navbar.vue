@@ -50,7 +50,7 @@ export default {
   #navbar{
     width:100%;
     height: 60px;
-    background-color:white;
+    background: rgb(75, 75, 75);
     box-shadow: 0 5px 35px 0 rgba(24, 44, 79, 0.15);
     .nav_header{
       font-size:1.2em;

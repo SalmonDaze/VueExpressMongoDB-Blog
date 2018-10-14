@@ -118,6 +118,7 @@ export default{
 </script>
 <style lang="scss" scoped>
     .article_add{
+        margin-top:50px;
         .input_title{
             font-size:2em;
         }

@@ -13,10 +13,12 @@
                     <span style='margin-left:20px;'>发布文章</span>
                 </li>
             </router-link>
+            <router-link :to="{name:'ArticleRevise'}">
             <li>
                 <i class='el-icon-refresh'></i>
                 <span style='margin-left:20px;'>修改文章</span>
             </li>
+            </router-link>
             <li>
                 <i class='el-icon-delete'></i>
                 <span style='margin-left:20px;'>删除文章</span>

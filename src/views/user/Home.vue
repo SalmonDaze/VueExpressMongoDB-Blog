@@ -2,7 +2,7 @@
   <div class="home">
     <navbar>
       <template slot='header'>
-        <span><img src='../../assets/reimu.png' style='height:35px;vertical-align:middle;margin-right:10px;'>Bad Apple!</span>
+        <span style='color:white;'><img src='../../assets/reimu.png' style='height:35px;vertical-align:middle;margin-right:10px;'>Bad Apple!</span>
       </template>
     </navbar>
     <el-row type="flex" class='grid'>

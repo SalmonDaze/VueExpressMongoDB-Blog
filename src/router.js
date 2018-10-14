@@ -8,6 +8,7 @@ import articleList from './views/user/articleList.vue'
 import admin from './views/admin/adminIndex.vue'
 import adminInfo from './views/admin/adminInfo.vue'
 import adminAddarticle from './views/admin/adminAddarticle.vue'
+import adminArticleRevise from './views/admin/adminArticleRevise.vue'
 
 Vue.use(Router)
 
@@ -49,6 +50,10 @@ export default new Router({
           path:'addArticle',
           name:'adminAddarticle',
           component:adminAddarticle,
+        },{
+          path:'ArticleRevise',
+          name:'ArticleRevise',
+          component:adminArticleRevise,
         }
       ]
     }

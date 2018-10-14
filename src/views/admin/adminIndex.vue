@@ -4,7 +4,7 @@
             <el-header>
                 <navbar>
                     <template slot='header'>
-                        <span><img src='../../assets/monisha.png' style='height:40px;vertical-align:middle;margin-right:10px;'>后台系统</span>
+                        <span style='color:white;'><img src='../../assets/monisha.png' style='height:40px;vertical-align:middle;margin-right:10px;'>后台系统</span>
                     </template>
                     <template slot='footer'>
                         <el-button type="primary" plain class='back' @click="$router.push('/')">返回主页</el-button>
@@ -41,6 +41,7 @@ export default{
     }
     .navbar{
         width:100%;
+        
         .el-button{
             margin-top:10px;
         }
@@ -50,6 +51,9 @@ export default{
         }
         .el-aside{
             width:10%;
+        }
+        .el-main{
+            height: 900px;
         }
         .el-header{
             padding:0px;
