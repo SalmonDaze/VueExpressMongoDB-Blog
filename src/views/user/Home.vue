@@ -28,6 +28,8 @@
                     </el-footer>
                 </el-container>
             </div>
+            <el-pagination layout="prev, pager, next" :total="page" @current-change='changePage'>
+            </el-pagination>
         </div>
       </el-col>
       <el-col :span="1"></el-col>
@@ -68,15 +70,19 @@ export default {
     return{
       userCookie:'',
       allArticleCount:0,
-                SuibiCount:0,
-                JishuCount:0,
-                ShishiCount:0,
-                title:'',
-                content:'',
-                articleList:[],
+      SuibiCount:0,
+      JishuCount:0,
+      ShishiCount:0,
+      title:'',
+      content:'',
+      articleList:[],
+      page:0,
     }
   },
   created(){
+    this.$http.get('http://localhost:3000/articleCount').then((res)=>{
+            this.page = res.data.length + 10
+        })
     this.$http({
       method:'GET',
       withCredentials: true,
@@ -86,12 +92,28 @@ export default {
         this.userCookie = res.data.message
       }
     })
-    this.$http.get('http://localhost:3000/getArticle').then((res)=>{
-      this.articleList = res.data
-      console.log(res.data)
-    })
+    this.getData(0)
   },
   methods:{
+    changePage(pages){
+      this.getData(pages-1)
+    },
+    getData(pages){
+      this.$http({
+          url:'http://localhost:3000/getArticle',
+          method:'POST',
+          headers:{
+              'Content-Type' : 'application/x-www-form-urlencoded'
+          },
+          data:{
+              page:pages,
+              limit:5,
+              skip:5,
+          }
+          }).then((res)=>{
+              this.articleList = res.data
+              })
+          },
     logout(){
       this.$http({
         method:'POST',

@@ -74,6 +74,7 @@ export default{
                     }
                 })
                 if(res.data.code==200){
+                    console.log(res.data)
                     this.title = res.data.article[0].title
                     this.content = res.data.article[0].content
                     this.radio = res.data.article[0].radio

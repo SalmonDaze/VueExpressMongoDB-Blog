@@ -89,10 +89,18 @@ router.post('/logout',(req,res,next)=>{
 
 router.post('/getArticle',(req,res,next)=>{
     let params = JSON.parse(Object.keys(req.body)[0])
-    console.log(params)
-    Model.article.find({}).then(articlelist=>{
+    Model.article.find({}).sort({_id:-1}).skip(params.page*params.skip).limit(params.limit).then(articlelist=>{
         article = articlelist
         res.json(article)
+    })
+})
+
+router.get('/articleCount',(req,res,next)=>{
+    Model.article.find({}).then(articleList=>{
+        res.json({
+            code:200,
+            length:articleList.length
+        })
     })
 })
 

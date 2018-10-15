@@ -28,7 +28,7 @@ router.post('/addArticle',(req,res,next)=>{
     })
 })
 
-router.get('/getArticle',(req,res,next)=>{
+router.post('/getArticle',(req,res,next)=>{
     let _id = JSON.parse(Object.keys(req.body)[0]).id
     Model.article.find({_id:_id}).then(resarticle=>{
         res.json({

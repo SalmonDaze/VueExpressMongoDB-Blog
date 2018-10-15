@@ -17,7 +17,7 @@
                     </el-table-column>
                 </el-table>
                 </template>
-                <el-pagination layout="prev, pager, next" :total="page" @current-change='search(pages)'>
+                <el-pagination layout="prev, pager, next" :total="page" @current-change='changePage'>
                 </el-pagination>
             </div>
             <div v-else>
@@ -33,33 +33,15 @@ export default {
     data(){
         return{
             tableData: [],
-            page:100,
-            currentPage:0,
+            page:0,
+            currentPage:1,
         }
     },
     created(){
-        this.$http({
-            url:'http://localhost:3000/getArticle',
-            method:'POST',
-            data:{
-                page
-            },
-            headers:{
-                'Content-Type' : 'application/x-www-form-urlencoded'
-            }
-            }).then((res)=>{
-                let articleList = res.data
-                this.page = Math.ceil(articleList.length / 10) * 10
-                console.log(articleList)
-                for(let i=0;i<articleList.length;i++){
-                    this.tableData.push({
-                        author:articleList[i].author,
-                        content:articleList[i].content,
-                        title:articleList[i].title,
-                        _id:articleList[i]._id,
-                })
-            }
+        this.$http.get('http://localhost:3000/articleCount').then((res)=>{
+            this.page = res.data.length
         })
+        this.getData(0)
     },
     methods:{
         handleClick(row){
@@ -70,24 +52,35 @@ export default {
                 }
             })
         },
-        search(pages){
-            console.log(pages)
-            this.currentPage = page
+        changePage(pages){
+            this.getData(pages-1)
+        },
+        getData(pages){
             this.$http({
                 url:'http://localhost:3000/getArticle',
                 method:'POST',
-                data:{
-                    page:page
-                },
-                header:{
+                headers:{
                     'Content-Type' : 'application/x-www-form-urlencoded'
+                },
+                data:{
+                    page:pages,
+                    limit:10,
+                    skip:10,
                 }
-            }).then(()=>{}).catch((e)=>{
-                console.log(e)
+                }).then((res)=>{
+                    let articleList = res.data
+                    this.tableData = []
+                    for(let i=0;i<articleList.length;i++){
+                        this.tableData.push({
+                            author:articleList[i].author,
+                            content:articleList[i].content,
+                            title:articleList[i].title,
+                            _id:articleList[i]._id,
+                    })
+                }
             })
         }
     }
-
 }
 </script>
 
