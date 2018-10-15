@@ -53,10 +53,11 @@ export default{
             width:10%;
         }
         .el-main{
-            height: 710px;
+            height: 94vh;
         }
         .el-header{
             padding:0px;
+            height: 6vh;
         }
     }
 </style>

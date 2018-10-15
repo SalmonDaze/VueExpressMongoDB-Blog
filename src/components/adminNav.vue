@@ -46,7 +46,7 @@
     #admin_nav{
         .nav_container{
             width:100%;
-            height: 92vh;
+            height: 94vh;
             background: rgb(87, 87, 87);
             li:first-child{
                 padding-top:10px;

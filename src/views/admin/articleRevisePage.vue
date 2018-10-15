@@ -31,7 +31,7 @@
             <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption">
                 {{resarticle.content}}
             </quill-editor>
-            <el-button type="primary" class='release' @click='reviseArticle()' ref='releasebtn' :disabled="btnswitch">发布</el-button>
+            <el-button type="primary" class='release' @click='reviseArticle()' ref='releasebtn' :disabled="btnswitch">修改</el-button>
             <el-button type="warning" class='reset' @click="$router.push({name:'ArticleRevise'})">返回</el-button>
         </div>
     </div>
@@ -61,7 +61,6 @@ export default{
     },
     methods:{
         async getArticle(){
-            let that = this
             try{
                 let res = await this.$http({
                     method:'POST',
