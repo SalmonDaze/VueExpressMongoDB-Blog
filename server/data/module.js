@@ -32,6 +32,10 @@ let article = new mongoose.Schema({
     like: {
         type: Number,
         default: 0,
+    },
+    tags:{
+        type: Array,
+        default:[]
     }
 })
 let category = new mongoose.Schema({

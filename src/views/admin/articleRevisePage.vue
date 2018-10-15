@@ -2,7 +2,7 @@
     <div class='article_add'>
         <div class='text-input-area'>
             <div class='input_title'>
-                发布文章{{radio}}
+                修改文章
             </div>
             <div class="hr"></div>
             <br/>
@@ -26,11 +26,13 @@
             </div>
             <br/>
             <el-input placeholder="请输入标题" v-model="title" clearable class='article_title'>
+               sadas
             </el-input>
             <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption">
+                {{resarticle.content}}
             </quill-editor>
-            <el-button type="primary" class='release' @click='addArticle()' ref='releasebtn' :disabled="btnswitch">发布</el-button>
-            <el-button type="warning" class='reset' @click='init()'>重置</el-button>
+            <el-button type="primary" class='release' @click='reviseArticle()' ref='releasebtn' :disabled="btnswitch">发布</el-button>
+            <el-button type="warning" class='reset' @click="$router.push({name:'ArticleRevise'})">返回</el-button>
         </div>
     </div>
 </template>
@@ -52,9 +54,75 @@ export default{
             radio:null,
             bk:'',
             btnswitch:false,
+            resarticle:{},
         }
     },
+    created(){
+    },
     methods:{
+        async getArticle(){
+            let that = this
+            try{
+                let res = await this.$http({
+                    method:'POST',
+                    url:'http://localhost:3000/admin/getArticle',
+                    data:{
+                        id:this.$route.params.id
+                    },
+                    headers:{
+                    'Content-Type' : 'application/x-www-form-urlencoded'
+                    }
+                })
+                if(res.data.code==200){
+                    this.title = res.data.article[0].title
+                    this.content = res.data.article[0].content
+                    this.radio = res.data.article[0].radio
+                }else{
+                    this.$message.error('修改失败!')
+                }
+            }catch(e){
+                console.log(e)
+                }
+        },
+        async reviseArticle(){
+            let title = this.title
+            let content = this.content
+            let radio = this.radio
+            if( title == '' || content == '' ){
+                this.$message({
+                message: '文章内容不完整',
+                type: 'warning'
+                })
+                return
+            }
+            try{
+                let res = await this.$http({
+                    method:'POST',
+                    url:'http://localhost:3000/admin/reviseArticle',
+                    data:{
+                        title:title,
+                        content:content,
+                        radio:radio,
+                        id:this.$route.params.id
+                    },
+                    headers:{
+                    'Content-Type' : 'application/x-www-form-urlencoded'
+                    }
+                })
+                if(res.data.code == 200){
+                    this.$message({
+                        message:'修改成功！',
+                        type:'success'
+                    })
+                    this.btnswitch = true
+                    setTimeout(()=>{this.$router.push({path:'/'})},3000)
+                }else{
+                    this.$message.error('修改失败！')
+                }
+            }catch(e){
+                console.log(e)
+            }
+        },
         addtags(){
             if( this.tags.length < 5 ){
                 this.tags_input === '' ? this.$message.error('标签不可为空') : 
@@ -69,56 +137,13 @@ export default{
         handleClose(tag){
             this.tags.splice(this.tags.indexOf(tag),1)
         },
-        init(){
-            this.title = this.content = this.tags_input = this.bk = ''
-            this.tags = []
-        },
-        async addArticle(){
-            let title = this.title
-            let content = this.content
-            let radio = this.radio
-            if( title == '' || content == '' ){
-                this.$message({
-                message: '文章内容不完整',
-                type: 'warning'
-                })
-                return
-            }
-            try {
-                let res = await this.$http({
-                method:'POST',
-                url:'http://localhost:3000/addArticle',
-                data:{
-                    title:title,
-                    content:content,
-                    author:radio
-                },
-                headers:{
-                'Content-Type' : 'application/x-www-form-urlencoded'
-                }
-            })
-            if(res.data.code == 1){
-                this.$message.error(`文章发布失败`)
-                return
-            }else{
-                this.$message({
-                message: '文章发布成功',
-                type: 'success'
-                })
-                this.btnswitch = true;
-                setTimeout(()=>{this.$router.push({path:'/'})},3000)
-            }
-                }catch(err){
-                console.log('Server Error :' + err)
-            }
-        },
     },
-    created(){}
+    created(){this.getArticle()}
 }
 </script>
 <style lang="scss" scoped>
     .article_add{
-        margin-top:50px;
+        margin-top:0px;
         .input_title{
             font-size:2em;
         }

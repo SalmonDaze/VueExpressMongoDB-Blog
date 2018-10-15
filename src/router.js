@@ -9,6 +9,7 @@ import admin from './views/admin/adminIndex.vue'
 import adminInfo from './views/admin/adminInfo.vue'
 import adminAddarticle from './views/admin/adminAddarticle.vue'
 import adminArticleRevise from './views/admin/adminArticleRevise.vue'
+import articleRevisePage from './views/admin/articleRevisePage.vue'
 
 Vue.use(Router)
 
@@ -54,7 +55,14 @@ export default new Router({
           path:'ArticleRevise',
           name:'ArticleRevise',
           component:adminArticleRevise,
-        }
+          children:[
+            {
+              path:'article/:id',
+              name:'articleRevisePage',
+              component:articleRevisePage,
+            }
+          ]
+        },
       ]
     }
   ]

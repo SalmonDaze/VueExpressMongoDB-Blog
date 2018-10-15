@@ -87,8 +87,9 @@ router.post('/logout',(req,res,next)=>{
     })
 })
 
-router.get('/getArticle',(req,res,next)=>{
-    let article = []
+router.post('/getArticle',(req,res,next)=>{
+    let params = JSON.parse(Object.keys(req.body)[0])
+    console.log(params)
     Model.article.find({}).then(articlelist=>{
         article = articlelist
         res.json(article)

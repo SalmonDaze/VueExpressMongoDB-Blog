@@ -27,4 +27,38 @@ router.post('/addArticle',(req,res,next)=>{
         })
     })
 })
+
+router.get('/getArticle',(req,res,next)=>{
+    let _id = JSON.parse(Object.keys(req.body)[0]).id
+    Model.article.find({_id:_id}).then(resarticle=>{
+        res.json({
+            article:resarticle,
+            code:200,
+            message:'查找成功'
+        })
+    }).catch(e=>{
+        res.json({
+            code:1,
+            message:'修改失败！'
+        })
+    })
+})
+
+router.post('/reviseArticle',(req,res,next)=>{
+    let article = JSON.parse(Object.keys(req.body)[0])
+    console.log(article)
+    Model.article.updateOne({_id:article.id},{title:article.title,content:article.content},(err, doc)=>{
+        if(err){
+            console.log(err)
+            return
+        }else{
+            let response = {
+                code:200,
+                message:'修改成功',
+                data:doc
+            }
+            res.json(response)
+        }
+    })
+})
 module.exports = router
