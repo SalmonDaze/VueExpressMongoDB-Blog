@@ -28,7 +28,7 @@
                     </el-footer>
                 </el-container>
             </div>
-            <el-pagination layout="prev, pager, next" :total="page" @current-change='changePage'>
+            <el-pagination layout="prev, pager, next" :total="page" @current-change='changePage' background style='margin-bottom:20px;margin-top:10px;'>
             </el-pagination>
         </div>
       </el-col>
@@ -168,7 +168,6 @@ export default {
         }
     }
     #article{
-        background:rgb(220,220,220);
         width:100%;
         border-radius:10px;
         el-menu-time{
