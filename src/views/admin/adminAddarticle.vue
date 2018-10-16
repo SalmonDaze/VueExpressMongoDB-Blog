@@ -7,11 +7,8 @@
             <div class="hr"></div>
             <br/>
             <span>文章板块：</span>
-            <select v-model='bk' class='article_catogory'>
-                <option value ="volvo">Volvo</option>
-                <option value ="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
+            <select v-model='category' class='article_catogory'>
+                <option v-for="categorys in categoryList" :value ="categorys" :key='categorys'>{{categorys}}</option>
             </select>
             <br>
             <span>文章标签：</span>
@@ -51,7 +48,8 @@ export default{
             tags:[],
             tags_input:'',
             radio:null,
-            bk:'',
+            category:'',
+            categoryList:[],
             btnswitch:false,
         }
     },
@@ -78,7 +76,8 @@ export default{
             let title = this.title
             let content = this.content
             let radio = this.radio
-            if( title == '' || content == '' ){
+            let category = this.category
+            if( title == '' || content == '' || category == ''){
                 this.$message({
                 message: '文章内容不完整',
                 type: 'warning'
@@ -92,7 +91,8 @@ export default{
                 data:{
                     title:title,
                     content:content,
-                    author:radio
+                    author:radio,
+                    category:category,
                 },
                 headers:{
                 'Content-Type' : 'application/x-www-form-urlencoded'
@@ -114,7 +114,20 @@ export default{
             }
         },
     },
-    created(){}
+    created(){
+        this.$http({
+            url:'http://localhost:3000/admin/getCategory',
+            method:'GET',
+            headers:{
+                'Content-Type' : 'application/x-www-form-urlencoded'
+            }
+        }).then((res)=>{
+            let data = res.data.data
+            for(let i=0;i<data.length;i++){
+                this.categoryList.push(data[i].title)
+            }
+        })
+    }
 }
 </script>
 <style lang="scss" scoped>

@@ -7,6 +7,8 @@
                     </el-table-column>
                     <el-table-column prop="author" label="作者" width="180">
                     </el-table-column>
+                    <el-table-column prop="category" label="文章板块" width='140'>
+                    </el-table-column>
                     <el-table-column prop="content" label="文章内容">
                     </el-table-column>
                     <el-table-column prop="revise" label="操作" width='150'>
@@ -76,6 +78,7 @@ export default {
                             content:articleList[i].content,
                             title:articleList[i].title,
                             _id:articleList[i]._id,
+                            category:articleList[i].category
                     })
                 }
             })

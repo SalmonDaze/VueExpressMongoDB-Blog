@@ -47,8 +47,6 @@ export default{
         }
     }
     #admin_container{
-        .admin_right{
-        }
         .el-aside{
             width:10%;
         }

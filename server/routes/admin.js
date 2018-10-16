@@ -17,10 +17,12 @@ router.post('/addArticle',(req,res,next)=>{
     let title = articleInfo.title
     let content = articleInfo.content
     let category = articleInfo.category
+    console.log(articleInfo)
     Model.article.create({
         category:category,
         title:title,
         content:content,
+        category:category,
         create_at: getDate(),
     }).then(()=>{
         res.json({
@@ -48,7 +50,8 @@ router.post('/getArticle',(req,res,next)=>{
 
 router.post('/reviseArticle',(req,res,next)=>{
     let article = JSON.parse(Object.keys(req.body)[0])
-    Model.article.updateOne({_id:article.id},{title:article.title,content:article.content},(err, doc)=>{
+    console.log(article)
+    Model.article.updateOne({_id:article.id},{title:article.title,content:article.content,category:article.category},(err, doc)=>{
         if(err){
             console.log(err)
             return

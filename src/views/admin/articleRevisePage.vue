@@ -7,11 +7,8 @@
             <div class="hr"></div>
             <br/>
             <span>文章板块：</span>
-            <select v-model='bk' class='article_catogory'>
-                <option value ="volvo">Volvo</option>
-                <option value ="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
+            <select v-model='category' class='article_catogory'>
+                <option :value="categorys" v-for="categorys in categoryList" :key='categorys'>{{categorys}}</option>
             </select>
             <br>
             <span>文章标签：</span>
@@ -54,6 +51,8 @@ export default{
             bk:'',
             btnswitch:false,
             resarticle:{},
+            category:'',
+            categoryList:[],
         }
     },
     methods:{
@@ -74,6 +73,7 @@ export default{
                     this.title = res.data.article[0].title
                     this.content = res.data.article[0].content
                     this.radio = res.data.article[0].radio
+                    this.category = res.data.article[0].category
                 }else{
                     this.$message.error('修改失败!')
                 }
@@ -85,6 +85,7 @@ export default{
             let title = this.title
             let content = this.content
             let radio = this.radio
+            let category = this.category
             if( title == '' || content == '' ){
                 this.$message({
                 message: '文章内容不完整',
@@ -100,7 +101,8 @@ export default{
                         title:title,
                         content:content,
                         radio:radio,
-                        id:this.$route.params.id
+                        id:this.$route.params.id,
+                        category:category
                     },
                     headers:{
                     'Content-Type' : 'application/x-www-form-urlencoded'
@@ -135,7 +137,17 @@ export default{
             this.tags.splice(this.tags.indexOf(tag),1)
         },
     },
-    created(){this.getArticle()}
+    created(){
+        this.getArticle()
+        this.$http.get('http://localhost:3000/admin/getCategory').then((res)=>{
+                console.log(res.data.data)
+                for(let i=0 ;i<res.data.data.length;i++){
+                    this.categoryList.push(res.data.data[i].title,)
+                }
+            }).catch(e=>{
+                console.log(e)
+            })
+        }
 }
 </script>
 <style lang="scss" scoped>

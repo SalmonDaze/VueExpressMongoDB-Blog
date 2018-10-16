@@ -107,9 +107,12 @@ router.get('/articleCount',(req,res,next)=>{
 router.post('/addArticle',(req,res,next)=>{
     let article = JSON.parse(Object.keys(req.body)[0])
     let author = article.author || 'anonymous'
+    let category = article.category
+    console.log(category)
     Model.article.create({
         title:article.title,
         content:article.content,
+        category:category,
         comment:[],
         like:0,
         views:0,
