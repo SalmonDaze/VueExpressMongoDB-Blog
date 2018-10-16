@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost:27017/badapple')
+mongoose.connect('mongodb://localhost:27017/badapple',{useNewUrlParser:true})
 
 let userSchema = new mongoose.Schema({
     username: String,
@@ -40,6 +40,10 @@ let article = new mongoose.Schema({
 })
 let category = new mongoose.Schema({
     title: String,
+    create_at: {
+        type: String,
+        default: Date.now()
+    }
 })
 Model = {
         player: mongoose.model('player',userSchema),

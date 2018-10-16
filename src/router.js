@@ -12,6 +12,7 @@ import adminArticleRevise from './views/admin/adminArticleRevise.vue'
 import articleRevisePage from './views/admin/articleRevisePage.vue'
 import adminRemoveArticle from './views/admin/adminRemoveArticle.vue'
 import adminUserOperate from './views/admin/adminUserOperate.vue'
+import adminCategory from './views/admin/adminCategory.vue'
 
 Vue.use(Router)
 
@@ -72,6 +73,10 @@ export default new Router({
           path:'adminUserOperate',
           name:'adminUserOperate',
           component:adminUserOperate,
+        },{
+          path:'adminCategory',
+          name:'adminCategory',
+          component:adminCategory
         }
       ]
     }

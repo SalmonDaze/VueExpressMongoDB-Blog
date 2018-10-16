@@ -31,10 +31,12 @@
                 <span style='margin-left:20px;'>用户操作</span>
             </li>
             </router-link>
+            <router-link :to="{name:'adminCategory'}">
             <li>
                 <i class='el-icon-setting'></i>
-                <span style='margin-left:20px;'>分类设置</span>
+                <span style='margin-left:20px;'>板块设置</span>
             </li>
+            </router-link>
         </ul>
     </div>
 </template>

@@ -5,7 +5,7 @@ const Model = require('../data/module')
 function getDate(){
     let nowDate = new Date()
     let yy = nowDate.getFullYear()
-    let mm = nowDate.getMonth()
+    let mm = nowDate.getMonth()+1
     let dd = nowDate.getDate()
     let hh = nowDate.getHours()
     let min = nowDate.getMinutes()
@@ -126,5 +126,47 @@ router.post('/improvePower',(req,res,next)=>{
         })
     }
     })
+})
+
+router.get('/getCategory',(req,res,next)=>{
+    Model.category.find({}).then((categoryList)=>{
+        res.json({
+            code:200,
+            message:'查找成功',
+            data:categoryList
+        })
+    }).catch( e => {
+        console.log(e)
+    })
+})
+
+router.post('/addCategory',(req,res,next)=>{
+    let category = JSON.parse(Object.keys(req.body)[0])
+    Model.category.find({}).count().then((length)=>{
+        if(length>=10){
+            res.json({
+                code:1,
+                message:'板块数达到最大值'
+            })
+        }else{
+            Model.category.findOne({title:category.title}).then((result)=>{
+                if(result){
+                    res.json({
+                        code:1,
+                        message:'板块重名'
+                    })
+                }else{
+                    Model.category.create({title:category.title,create_at:getDate()}).then(()=>{
+                        res.json({
+                            code:200,
+                            message:'创建成功'
+                        })
+                    })
+                }
+            })
+        }
+    })
+    
+    
 })
 module.exports = router

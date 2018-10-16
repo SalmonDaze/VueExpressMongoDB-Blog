@@ -26,7 +26,6 @@
             </div>
             <br/>
             <el-input placeholder="请输入标题" v-model="title" clearable class='article_title'>
-               sadas
             </el-input>
             <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption">
                 {{resarticle.content}}
@@ -56,8 +55,6 @@ export default{
             btnswitch:false,
             resarticle:{},
         }
-    },
-    created(){
     },
     methods:{
         async getArticle(){
