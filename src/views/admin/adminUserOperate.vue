@@ -14,7 +14,7 @@
                     <el-table-column prop="revise" label="操作" width='150'>
                         <template slot-scope="scope">
                             <el-button @click="improvePower(scope.row)" type="text" size="small">提升用户组</el-button>
-                            <el-button @click="removeUser(scope.row)"type="text" size="small">删除</el-button>
+                            <el-button @click="removeUser(scope.row)" type="text" size="small">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
