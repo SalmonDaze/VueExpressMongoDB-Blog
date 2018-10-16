@@ -16,7 +16,9 @@ router.post('/addArticle',(req,res,next)=>{
     let articleInfo = JSON.parse(Object.keys(req.body)[0])
     let title = articleInfo.title
     let content = articleInfo.content
+    let category = articleInfo.category
     Model.article.create({
+        category:category,
         title:title,
         content:content,
         create_at: getDate(),
@@ -166,7 +168,16 @@ router.post('/addCategory',(req,res,next)=>{
             })
         }
     })
-    
-    
 })
+
+router.post('/deleteCategory',(req,res,next)=>{
+    let id = JSON.parse(Object.keys(req.body)[0]).id
+    Model.category.deleteOne({_id:id}).then(()=>{
+        res.json({
+            code:200,
+            message:'删除成功'
+        })
+    })
+})
+
 module.exports = router

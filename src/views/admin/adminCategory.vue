@@ -11,6 +11,7 @@
                     </el-table-column>
                     <el-table-column prop="revise" label="操作" width='150'>
                         <template slot-scope="scope">
+                            <el-button @click="deleteCategory(scope.row)" type="text" size="small">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -40,6 +41,26 @@
             })
         },
         methods:{
+            deleteCategory(row){
+                this.$http({
+                    url:'http://localhost:3000/admin/deleteCategory',
+                    method:'POST',
+                    headers:{
+                        'Content-Type' : 'application/x-www-form-urlencoded'
+                    },
+                    data:{
+                        id:row.BID
+                    }
+                }).then(()=>{
+                    this.$message({
+                        type:'success',
+                        message:'删除成功'
+                    })
+                    setTimeout(()=>{
+                        location.reload()
+                    },1000)
+                })
+            },
             addCategory(){
                 this.$prompt('请输入板块标题','提示',{
                     confirmButtonText:'提交',
