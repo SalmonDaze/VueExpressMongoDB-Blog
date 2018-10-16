@@ -90,6 +90,7 @@ export default {
     }).then((res)=>{
       if(res.data.code==200){
         this.userCookie = res.data.message
+        this.$store.username = res.data.message.username
       }
     })
     this.getData(0)

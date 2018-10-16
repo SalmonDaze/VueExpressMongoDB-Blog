@@ -17,7 +17,7 @@
                 {{tag.name}}
             </el-tag>
             <br/>  
-            <div style="margin-top:30px;">
+            <div style="margin-top:30px;">{{radio}}
                 <el-radio v-model="radio" :label="this.$store.username">非匿名发布</el-radio>
                 <el-radio v-model="radio" :label='null'>匿名发布</el-radio>
             </div>
