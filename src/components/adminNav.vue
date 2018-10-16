@@ -19,14 +19,18 @@
                 <span style='margin-left:20px;'>修改文章</span>
             </li>
             </router-link>
+            <router-link :to="{name:'adminRemoveArticle'}">
             <li>
                 <i class='el-icon-delete'></i>
                 <span style='margin-left:20px;'>删除文章</span>
             </li>
+            </router-link>
+            <router-link :to="{name:'adminUserOperate'}">
             <li>
                 <i class='el-icon-search'></i>
                 <span style='margin-left:20px;'>用户操作</span>
             </li>
+            </router-link>
             <li>
                 <i class='el-icon-setting'></i>
                 <span style='margin-left:20px;'>分类设置</span>
@@ -46,7 +50,7 @@
     #admin_nav{
         .nav_container{
             width:100%;
-            height: 92vh;
+            height: 94vh;
             background: rgb(87, 87, 87);
             li:first-child{
                 padding-top:10px;

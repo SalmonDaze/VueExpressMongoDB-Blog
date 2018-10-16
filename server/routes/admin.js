@@ -46,7 +46,6 @@ router.post('/getArticle',(req,res,next)=>{
 
 router.post('/reviseArticle',(req,res,next)=>{
     let article = JSON.parse(Object.keys(req.body)[0])
-    console.log(article)
     Model.article.updateOne({_id:article.id},{title:article.title,content:article.content},(err, doc)=>{
         if(err){
             console.log(err)
@@ -59,6 +58,73 @@ router.post('/reviseArticle',(req,res,next)=>{
             }
             res.json(response)
         }
+    })
+})
+
+router.post('/removeArticle',(req,res,next)=>{
+    let articleId = JSON.parse(Object.keys(req.body)[0]).id
+    Model.article.remove({_id:articleId},(err)=>{
+        if(err){
+            console.log(err)
+        }else{
+            res.json({
+                code:200,
+                message:'文章删除成功'
+            })
+        }
+    })
+})
+
+router.post('/getUserList',(req,res,next)=>{
+    let params = JSON.parse(Object.keys(req.body)[0])
+    Model.player.find({}).sort({_id:-1}).skip(params.page*params.skip).limit(params.limit).then((userList)=>{
+        res.json({
+            code:200,
+            message:'用户查找成功',
+            userList:userList
+        })
+    }).catch(e => {
+        console.log(e)
+    })
+})
+
+router.get('/getUserCount',(req,res,next)=>{
+    Model.player.find({}).then((userList)=>{
+        res.json({
+            code:200,
+            message:'用户查找成功',
+            length:userList.length
+        })
+    }).catch(e => {
+        console.log(e)
+    })
+})
+
+router.post('/removeUser',(req,res,next)=>{
+    let userID = JSON.parse(Object.keys(req.body)[0]).uid
+    Model.player.deleteOne({_id:userID},(err)=>{
+        if(err){
+            console.log(err)
+        }else{
+            res.json({
+                code:200,
+                message:'用户删除成功'
+            })
+        }
+    })
+})
+
+router.post('/improvePower',(req,res,next)=>{
+    let userID = JSON.parse(Object.keys(req.body)[0]).uid
+    Model.player.update({_id:userID},{isAdmin:true},(err,doc)=>{
+        if(err){
+            console.log(err)
+        }else{
+        res.json({
+            code:200,
+            message:'提升成功！'
+        })
+    }
     })
 })
 module.exports = router
