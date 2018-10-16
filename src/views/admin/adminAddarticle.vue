@@ -44,6 +44,7 @@ export default{
                 modules:{
                         toolbar:toolbarOptions
                     },
+                    placeholder:'请输入文章内容...'
             },
             content:'',
             title:'',
