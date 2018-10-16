@@ -2,6 +2,16 @@ const express = require('express')
 const router = express.Router()
 const Model = require('../data/module')
 
+function getDate(){
+    let nowDate = new Date()
+    let yy = nowDate.getFullYear()
+    let mm = nowDate.getMonth()+1
+    let dd = nowDate.getDate()
+    let hh = nowDate.getHours()
+    let min = nowDate.getMinutes()
+    return `${yy}年${mm}月${dd}日${hh}时${min}分`
+}
+
 router.post('/register',(req,res,next)=>{
     let user = JSON.parse(Object.keys(req.body)[0])
     let username = user.username    
@@ -117,6 +127,7 @@ router.post('/addArticle',(req,res,next)=>{
         like:0,
         views:0,
         author:author,
+        create_at:getDate()
     }).then(()=>{
         res.json({
             code:200,
