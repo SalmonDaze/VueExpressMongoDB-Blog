@@ -1,12 +1,16 @@
 <template>
     <div class='article_container'>
-        <navbar></navbar>
+        <navbar>
+            <template slot='header'>
+        <router-link :to="{path:'/'}"><span style='color:white;'>
+          <img src='../../assets/reimu.png' style='height:35px;vertical-align:middle;margin-right:10px;'>Bad Apple!</span></router-link>
+      </template>
+        </navbar>
         <div class="article">
             <el-container>
                 <el-header>
                     <span class='title'>
                         {{articleContent.title}}
-                        {{this.$store.username}}
                     </span>
                     
                 <p>
@@ -23,19 +27,24 @@
                 <el-footer>
                 </el-footer>
                 <div style='background:white;rgb(10,10,10)'>
-                    <span class='footer_title'>评论列表</span>
+                    <span class='footer_title' style='float:left;margin-left:30px;margin-top:30px;'>评论列表</span>
                         <div v-if='commentLength == 0' style='margin-top:100px;margin-bottom:100px;'>
                             当前无评论
                         </div>
-                        <div v-else>
-                            <div v-for='comment in commentList' :key='comment.create_at'>
-                                <span>{{comment.username}}</span>
-                                <span>{{comment.date}}</span>
-                                <span>{{comment.content}}</span>
+                        <div v-else style='margin-top:90px;'>
+                            <div v-for='comment in commentList' :key='comment.create_at' style='margin-top:20px;text-align:left;margin-left:140px;'>
+                                <span style='color:#67C23A'>{{comment.username}}</span>
+                                <br/>
+                                <span style='line-height:50px;margin-left:30px;'>{{comment.content}}</span>
+                                <br/>
+                                <span style='font-size:0.8em;padding-top:10px;'>发表日期: {{comment.date}}</span>
+                                <br/>
+                                <div class="hr2" style='width:70%;height:1px;background:rgb(220,220,220);margin-top:10px;'></div>
                             </div>
+                            
                         </div>
                         <div style='width:80%;margin:0 auto;'>
-                            <el-input type="textarea" :rows="6" placeholder="快来发表评论吧" v-model='comment'></el-input>
+                            <el-input type="textarea" :rows="6" placeholder="快来发表评论吧" v-model='comment' style='margin-top:30px;'></el-input>
                             <el-button plain style='float:left;margin-top:20px;margin-bottom:40px;' @click='publishComment'>发表评论</el-button>
                         </div>
                 </div>
@@ -68,7 +77,7 @@ import navbar from '../../components/navbar.vue'
                     data:{
                         id:this.$route.params.id,
                         comment:comment,
-                        author:this.$store.state.username
+                        username:this.$store.username,
                     },headers:{
                         'Content-Type' : 'application/x-www-form-urlencoded'
                     }
@@ -110,15 +119,13 @@ import navbar from '../../components/navbar.vue'
                 margin:0 auto;
                 background: rgb(245,245,245);
                 .footer_title{
-                        text-align: left;
-                        margin-left:50px;
-                    }
                 .hr{
                     width:95%;
                     height: 1px;
                     background: #409EFF;
                     margin:0 auto;
                     margin-top:20px;
+                }
                 }
                 
                 .el-header{
