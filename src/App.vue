@@ -3,7 +3,22 @@
     <router-view></router-view>
   </div>
 </template>
-
+<script>
+  export default{
+    created(){
+      this.$http({
+      method:'GET',
+      withCredentials: true,
+      url:'http://localhost:3000/checkLogin'
+    }).then((res)=>{
+      if(res.data.code==200){
+        this.userCookie = res.data.message
+        this.$store.username = res.data.message.username
+      }
+    })
+    }
+  }
+</script>
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
