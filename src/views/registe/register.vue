@@ -13,6 +13,15 @@
                 <br/>
                 <el-input v-model='repassword' placeholder="请再次输入密码"  type=password></el-input>
                 <br/>
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://upload.qiniup.com"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :data='postData'>
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
                 <validate class='validate' v-on:comfirm-success='comfirm = !comfirm'></validate>
                 <el-button type="primary" :disabled='comfirm' @click='registry'>注册</el-button>
                 <el-alert
@@ -52,12 +61,18 @@ export default {
       showError:false,
       login_username:'',
       login_password:'',
+      imageUrl:'',
+      postData:{
+        token:'Sko4Ix3MKmajClJB5ktD-mwe_Vi4XEDD0Wvd1Z0u:Ut23Pzy8WVK5fU29k31xiQv0WAE=:eyJzY29wZSI6ImJhZGFwcGxlIiwiZGVhZGxpbmUiOjE1NzU3NjcwMDh9'
+      },
+      avatar_key:'',
     }
   },
   methods:{
     async registry(){
       let username = this.username
       let password = this.password
+      let avatar_key = this.avatar_key
       if(this.repassword != this.password){
         this.msgs = '输入的密码不一致'
         this.$message.error(this.msgs)
@@ -76,7 +91,8 @@ export default {
         url:'http://localhost:3000/register',
         data:{
           username:username,
-          password:password
+          password:password,
+          avatar_key:avatar_key,
         },
         headers:{
           'Content-Type' : 'application/x-www-form-urlencoded'
@@ -98,11 +114,53 @@ export default {
           console.log('Server Error :' + err)
         }
     },
+    handleAvatarSuccess(res, file) {   //上传成功后在图片框显示图片
+        this.imageUrl = URL.createObjectURL(file.raw)
+        this.avatar_key = res.key
+      },
+      handleError(res) {   //显示错误
+        console.log(res)
+      },
+      beforeAvatarUpload(file) {    //在图片提交前进行验证
+        const isJPG = file.type === 'image/jpeg'
+        const isPNG = file.type === 'image/png'
+
+        if (!isJPG&&!isPNG) {
+          this.$message.error('上传头像图片只能是 JPG/PNG 格式!')
+        }
+        return isJPG && isPNG 
+      }
   }
 }
 </script>
 
 <style scoped lang="scss">
+.avatar-uploader {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width:200px;
+    margin:0 auto;
+    margin-bottom: 30px;
+  }
+  .avatar-uploader:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
   .grid-content {
     border-radius: 4px;
     min-height: 36px;
@@ -126,7 +184,7 @@ export default {
       letter-spacing:10px;
     }
     .registe_main{
-      height:400px;
+      height:600px;
       background:white;
       a{
         text-decoration: none;

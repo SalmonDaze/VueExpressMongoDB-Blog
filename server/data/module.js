@@ -7,7 +7,14 @@ let userSchema = new mongoose.Schema({
     password: String,
     create_at: String,
     comment: Number,
-    isAdmin: Boolean,
+    isAdmin: {
+        type: Boolean,
+        default:false
+    },
+    avatar_key: {
+        type:String,
+        default: '',
+    }
 })
 let article = new mongoose.Schema({
     title: String,

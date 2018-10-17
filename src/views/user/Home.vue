@@ -49,6 +49,8 @@
               请先<router-link :to="{path:'/login'}">登陆</router-link>或<router-link :to="{path:'/register'}">注册</router-link>
             </el-main>
             <el-main class='user_Info_container' v-else>
+              <img :src='this.$store.avatar' class='avatar'>
+              <br/>
               <span>欢迎登陆</span>
               {{userCookie.username}}
               <br/>
@@ -59,8 +61,10 @@
               <span><a style='margin-left:30px;' @click='logout'>用户登出</a></span>
             </el-main>
           </el-container>
+          
       </el-col>
     </el-row>
+    
   </div>
 </template>
 
@@ -84,6 +88,7 @@ export default {
       content:'',
       articleList:[],
       page:0,
+      avatar:''
     }
   },
   created(){
@@ -130,9 +135,9 @@ export default {
       }).then(()=>{
         this.userCookie = !this.userCookie
       })
+    },
     }
   }
-}
 </script>
 <style lang="scss" scoped>
   .home{
@@ -173,10 +178,15 @@ export default {
             line-height: 100px
           }
           .user_Info_container{
-            height: 200px;
+            height: 320px;
             line-height: 50px;
             text-align: left;
             padding-left: 50px;
+            .avatar{
+              width:100px;
+              height: 100px;
+              border-radius: 10px;
+            }
             a{
               color:#67C23A;
               text-decoration: none;

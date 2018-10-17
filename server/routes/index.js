@@ -16,6 +16,7 @@ router.post('/register',(req,res,next)=>{
     let user = JSON.parse(Object.keys(req.body)[0])
     let username = user.username    
     let password = user.password
+    let avatar_key = user.avatar_key
     if(username == '' || password == ''){
         res.json({
             code:1,
@@ -41,11 +42,14 @@ router.post('/register',(req,res,next)=>{
                 create_at:`${createYear}${createMonth+1}${createDay}`,
                 comment:0,
                 isAdmin:false,
+                avatar_key:avatar_key
             }).then(()=>{
                 res.json({
                     code:200,
                     message:'注册成功！'
                 })
+            }).catch(e=>{
+                console.log(e)
             })
         }
     })
