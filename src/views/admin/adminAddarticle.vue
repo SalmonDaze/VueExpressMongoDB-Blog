@@ -2,7 +2,7 @@
     <div class='article_add'>
         <div class='text-input-area'>
             <div class='input_title'>
-                发布文章{{radio}}
+                发布文章
             </div>
             <div class="hr"></div>
             <br/>
@@ -17,7 +17,7 @@
                 {{tag.name}}
             </el-tag>
             <br/>  
-            <div style="margin-top:30px;">{{radio}}
+            <div style="margin-top:30px;">
                 <el-radio v-model="radio" :label="this.$store.username">非匿名发布</el-radio>
                 <el-radio v-model="radio" :label='null'>匿名发布</el-radio>
             </div>

@@ -118,7 +118,7 @@ router.post('/addArticle',(req,res,next)=>{
     let article = JSON.parse(Object.keys(req.body)[0])
     let author = article.author || 'anonymous'
     let category = article.category
-    console.log(category)
+    console.log(article.content)
     Model.article.create({
         title:article.title,
         content:article.content,
@@ -173,4 +173,48 @@ router.post('/publishComment',(req,res,next)=>{
         }
     })
 })
+
+router.post('/upvote',(req,res,next)=>{
+    let info = JSON.parse(Object.keys(req.body)[0])
+    let id = info.id
+    let username = info.username
+    Model.article.findOne({_id:id}).then((doc)=>{
+            doc.like++
+            doc.likeList.push(username)
+            doc.save()
+            res.json({
+                code:200,
+                message:'点赞成功!'
+            })
+        })
+    })
+
+router.post('/downvote',(req,res,next)=>{
+    let info = JSON.parse(Object.keys(req.body)[0])
+    let id = info.id
+    let username = info.username
+    Model.article.findOne({_id:id}).then((doc)=>{
+            doc.like--
+            let index = doc.likeList.indexOf(username)
+            doc.likeList.splice(index,1)
+            doc.save()
+            res.json({
+                code:200,
+                message:'取消成功!'
+            })
+        })
+    })
+
+router.post('/checkvote',(req,res,next)=>{
+    let info = JSON.parse(Object.keys(req.body)[0])
+    let id = info.id
+    let username = info.username
+    Model.article.findOne({_id:id}).then((doc)=>{
+            res.json({
+                code:200,
+                message:doc.likeList
+            })
+        })
+    })
+
 module.exports = router

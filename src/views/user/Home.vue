@@ -91,6 +91,16 @@ export default {
             this.page = res.data.length + 10
         })
     this.getData(0)
+      this.$http({
+      method:'GET',
+      withCredentials: true,
+      url:'http://localhost:3000/checkLogin'
+    }).then((res)=>{
+      if(res.data.code==200){
+        this.userCookie = res.data.message
+        this.$store.username = res.data.message.username
+      }
+    })
   },
   methods:{
     changePage(pages){

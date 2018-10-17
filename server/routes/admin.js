@@ -17,6 +17,7 @@ router.post('/addArticle',(req,res,next)=>{
     let title = articleInfo.title
     let content = articleInfo.content
     let category = articleInfo.category
+    console.log(content)
     console.log(articleInfo)
     Model.article.create({
         category:category,
@@ -40,7 +41,7 @@ router.post('/getArticle',(req,res,next)=>{
             code:200,
             message:'查找成功'
         })
-    }).catch(e=>{
+    }).catch( e =>{
         res.json({
             code:1,
             message:'修改失败！'

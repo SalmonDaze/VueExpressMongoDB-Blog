@@ -17,8 +17,9 @@
                     <span><i class='el-icon-info'> 作者 {{articleContent.author}}</i></span>
                     <span><i class='el-icon-date'> 发布日期 {{articleContent.create_at}}</i></span>
                     <span><i class='el-icon-view'> 浏览 {{articleContent.views}}</i></span>
-                    <span><i class='el-icon-star-off'> 点赞 {{articleContent.like}}</i></span>
-                    <span><i class='el-icon-edit'>评论 {{commentLength}}</i></span>
+                    <span class='like' v-if='!isVoted'><i class='el-icon-star-off' @click='upvote'> 点赞 {{articleContent.like}}</i></span>
+                    <span class='like' v-else><i class='el-icon-star-on' @click='downvote'> 已点赞 {{articleContent.like}}</i></span>
+                    <span><i class='el-icon-edit'> 评论 {{commentLength}}</i></span>
                 </p>
                 <div class="hr">
                 </div>
@@ -41,7 +42,6 @@
                                 <br/>
                                 <div class="hr2" style='width:70%;height:1px;background:rgb(220,220,220);margin-top:10px;'></div>
                             </div>
-                            
                         </div>
                         <div style='width:80%;margin:0 auto;'>
                             <el-input type="textarea" :rows="6" placeholder="快来发表评论吧" v-model='comment' style='margin-top:30px;'></el-input>
@@ -66,6 +66,8 @@ import navbar from '../../components/navbar.vue'
                 commentLength:0,
                 comment:'',
                 commentList:[],
+                isVoted:false,
+                likeList:[],
             }
         },
         methods:{
@@ -87,7 +89,44 @@ import navbar from '../../components/navbar.vue'
                         message:'发表成功！'
                     })
                 })
-            }
+            },
+            upvote(){
+                let id = this.$route.params.id
+                this.isVoted = true
+                this.$http({
+                    url:'http://localhost:3000/upvote',
+                    method:'POST',
+                    data:{
+                        id:id,
+                        username:this.$store.username
+                    },headers:{
+                        'Content-Type' : 'application/x-www-form-urlencoded'
+                    }
+                }).then(()=>{
+                    this.$message({
+                        type:'success',
+                        message:'点赞成功！'
+                    })
+                })
+            },
+            downvote(){
+                let id = this.$route.params.id
+                this.$http({
+                    url:'http://localhost:3000/downvote',
+                    method:'POST',
+                    data:{
+                        id:id,
+                        username:this.$store.username
+                    },headers:{
+                        'Content-Type' : 'application/x-www-form-urlencoded'
+                    }
+                }).then(()=>{
+                    this.$message({
+                        type:'success',
+                        message:'取赞成功！'
+                    })
+                })
+            },
         },
         created(){
             this.$http({
@@ -99,12 +138,27 @@ import navbar from '../../components/navbar.vue'
                 headers:{'Content-Type' : 'application/x-www-form-urlencoded'}
             }).then((res)=>{
                 this.articleContent = res.data.article
-                this.commentLength = res.data.article.comment.length;
+                this.commentLength = res.data.article.comment.length
                 this.commentList = res.data.article.comment
                 console.log(res)
             })
-        }
-    }
+
+            this.$http({
+                method:'POST',
+                url:'http://localhost:3000/checkvote',
+                data:{
+                    id:this.$route.params.id
+                },
+                headers:{'Content-Type' : 'application/x-www-form-urlencoded'}
+            }).then((res)=>{
+                this.likeList = res.data.message
+                this.likeList.map((x)=>{
+                    this.isVoted = x === this.$store.username ? true : false
+                }
+            )
+        })
+    },
+}
 </script>
 <style lang="scss" scoped>
     .article_container{
@@ -130,6 +184,12 @@ import navbar from '../../components/navbar.vue'
                 
                 .el-header{
                     padding-top:30px;
+                    .like{
+                        &:hover{
+                            cursor: pointer;
+                            color:#F56C6C;
+                        }
+                    }
                     .title{
                         font-size:2em;
                     }
@@ -146,6 +206,9 @@ import navbar from '../../components/navbar.vue'
                     text-align: left;
                     text-indent: 2em;
                     font-size:1.1em;
+                    line-height: 2em;
+                    padding-left: 50px;
+                    padding-right:50px;
                 }
                 
             }

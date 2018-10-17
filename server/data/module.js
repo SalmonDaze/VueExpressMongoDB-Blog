@@ -36,6 +36,10 @@ let article = new mongoose.Schema({
     tags:{
         type: Array,
         default:[]
+    },
+    likeList:{
+        type: Array,
+        default: []
     }
 })
 let category = new mongoose.Schema({
@@ -45,7 +49,7 @@ let category = new mongoose.Schema({
         default: Date.now()
     }
 })
-Model = {
+let Model = {
         player: mongoose.model('player',userSchema),
         article: mongoose.model('article',article),
         category: mongoose.model('category',category),
