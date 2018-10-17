@@ -71,6 +71,7 @@ export default {
         this.msgs = res.data.message
         this.userCookie = res.data.userInfo
         this.$store.username = this.login_username
+        this.$store.avatar = `http://pgq3wq57e.bkt.clouddn.com/${res.data.user.avatar_key}`
         this.$message({
           message: '登录成功！页面将于3秒后跳转',
           type: 'success'

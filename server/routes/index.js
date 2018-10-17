@@ -74,7 +74,8 @@ router.post('/login',(req,res,next)=>{
             res.cookie('userInfo',userInfomation,{maxAge:6000000})
             res.json({
                 code:200,
-                message:'登录成功'
+                message:'登录成功',
+                user:userInfomation,
             })
         }
     })
@@ -165,8 +166,9 @@ router.post('/publishComment',(req,res,next)=>{
     let comment = articleInfo.comment
     let id = articleInfo.id
     let username = articleInfo.username
+    let avatar = articleInfo.avatar
     let date = getDate()
-    Model.article.updateOne({_id:id},{$push:{comment:{username:username,content:comment,date:date}}},(err,reuslt)=>{
+    Model.article.updateOne({_id:id},{$push:{comment:{username:username,content:comment,date:date,avatar:avatar}}},(err,reuslt)=>{
         if(err){
             console.log(err)
         }else{

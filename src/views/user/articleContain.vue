@@ -34,11 +34,18 @@
                         </div>
                         <div v-else style='margin-top:90px;'>
                             <div v-for='comment in commentList' :key='comment.create_at' style='margin-top:20px;text-align:left;margin-left:140px;'>
-                                <span style='color:#67C23A'>{{comment.username}}</span>
+                                <div style='margin-bottom:5px;'>
+                                    <img :src="comment.avatar" class='avatar'>
+                                    <span style='color:#67C23A;font-size:1.2em;margin-left:10px;'>{{comment.username}}</span><span style='margin-left:6px;font-size:0.9em;'>发表:</span>
+                                </div>
                                 <br/>
-                                <span style='line-height:50px;margin-left:30px;'>{{comment.content}}</span>
+                                <div style='line-height:25px;margin-right:100px;'>
+                                    <span>{{comment.content}}</span>
+                                </div>
                                 <br/>
-                                <span style='font-size:0.8em;padding-top:10px;'>发表日期: {{comment.date}}</span>
+                                <div style='margin-top:10px;'>
+                                    <span style='font-size:0.8em;'>#{{commentList.indexOf(comment)+1}}</span><span style='font-size:0.8em;padding-top:10px;margin-left:20px'>{{comment.date}}</span>
+                                </div>
                                 <br/>
                                 <div class="hr2" style='width:70%;height:1px;background:rgb(220,220,220);margin-top:10px;'></div>
                             </div>
@@ -80,6 +87,7 @@ import navbar from '../../components/navbar.vue'
                         id:this.$route.params.id,
                         comment:comment,
                         username:this.$store.username,
+                        avatar:this.$store.avatar
                     },headers:{
                         'Content-Type' : 'application/x-www-form-urlencoded'
                     }
@@ -92,7 +100,6 @@ import navbar from '../../components/navbar.vue'
             },
             upvote(){
                 let id = this.$route.params.id
-                this.isVoted = true
                 this.$http({
                     url:'http://localhost:3000/upvote',
                     method:'POST',
@@ -213,5 +220,11 @@ import navbar from '../../components/navbar.vue'
                 
             }
         }
+    }
+    .avatar{
+        width:45px;
+        height: 45px;
+        border-radius: 100px;
+        vertical-align:middle;
     }
 </style>

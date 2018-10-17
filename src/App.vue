@@ -19,7 +19,6 @@
         }else{
           this.$store.avatar = `http://pgq3wq57e.bkt.clouddn.com/${res.data.message.avatar_key}`
         }
-        console.log(this.$store)
       }
     })
     }
