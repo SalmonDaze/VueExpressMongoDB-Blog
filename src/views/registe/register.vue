@@ -62,6 +62,12 @@ export default {
         this.msgs = '输入的密码不一致'
         this.$message.error(this.msgs)
         return
+      }else if(username.length < 6 || username.length > 12){
+        this.$message.error('用户名长度应在6-12之间')
+        return
+      }else if(password.length < 6 ){
+        this.$message.error('密码最小长度为6')
+        return
       }
       try {
         let res = await this.$http({

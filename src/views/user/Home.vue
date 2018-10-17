@@ -2,7 +2,8 @@
   <div class="home">
     <navbar>
       <template slot='header'>
-        <span style='color:white;'><img src='../../assets/reimu.png' style='height:35px;vertical-align:middle;margin-right:10px;'>Bad Apple!</span>
+        <router-link :to="{path:'/'}"><span style='color:white;'>
+          <img src='../../assets/reimu.png' style='height:35px;vertical-align:middle;margin-right:10px;'>Bad Apple!</span></router-link>
       </template>
     </navbar>
     <el-row type="flex" class='grid'>
@@ -15,7 +16,12 @@
                 <el-menu-item index="3">技术分享 ({{JishuCount}})</el-menu-item>
                 <el-menu-item index="4">实事杂谈 ({{ShishiCount}})</el-menu-item>
             </el-menu>
+            <div v-if='articleList.length == 0' class='none_article'>
+              当前无内容
+            </div>
+            
             <div class='article_list_content' v-for='article in articleList' :key='article._id'>
+              <router-link :to="{name:'article',params:{id:article._id}}">
                 <el-container class='article'>
                     <el-header class='article_head'>{{article.title}}</el-header>
                     <el-main class='article_content' v-html='article.content'></el-main>
@@ -27,6 +33,7 @@
                     <span>  |  赞 {{article.like}}</span>
                     </el-footer>
                 </el-container>
+                </router-link>
             </div>
             <el-pagination layout="prev, pager, next" :total="page" @current-change='changePage' background style='margin-bottom:20px;margin-top:10px;'>
             </el-pagination>
@@ -90,7 +97,7 @@ export default {
     }).then((res)=>{
       if(res.data.code==200){
         this.userCookie = res.data.message
-        this.$store.username = res.data.message.username
+        this.$store.state.username = res.data.message.username
       }
     })
     this.getData(0)
@@ -129,8 +136,18 @@ export default {
 </script>
 <style lang="scss" scoped>
   .home{
+    a{
+      color:rgb(22, 22, 22);
+      text-decoration: none;
+    }
     background: rgb(230,230,230);
     min-height:500px;
+    .none_article{
+      background: white;
+      height: 150px;
+      text-align: center;
+      padding-top: 130px;
+    }
       .grid{
       margin-top:50px;
       .user_Info{
@@ -175,13 +192,17 @@ export default {
             width:100px;
         }
         .article_list_content{
-            background:red;
             .article{
                 margin-top:5px;
                 text-align:left;
                 width:100%;
                 height:300px;
                 background:white;
+                transition: .3s;
+                &:hover{
+                  transform: translateY(-4px);
+                  box-shadow: 0 15px 35px 0 rgba(24, 44, 79, 0.15);
+                }
                 .article_head{
                     padding-top:25px;
                     font-size:1.5em;

@@ -135,4 +135,42 @@ router.post('/addArticle',(req,res,next)=>{
         })
     })
 })
+
+router.post('/getArticleContent',(req,res,next)=>{
+    let id = JSON.parse(Object.keys(req.body)[0]).id
+    Model.article.findOne({_id:id}).then((article)=>{
+        if(!article){
+            res.json({
+                code:1,
+                message:'查找失败'
+            })
+            return
+        }
+        res.json({
+            code:200,
+            message:'查找成功',
+            article:article,
+        })
+    }).catch(e=>{
+        console.log(e)
+    })
+})
+
+router.post('/publishComment',(req,res,next)=>{
+    let articleInfo = JSON.parse(Object.keys(req.body)[0])
+    let comment = articleInfo.comment
+    let id = articleInfo.id
+    let username = articleInfo.username
+    let date = getDate()
+    Model.article.updateOne({_id:id},{$push:{comment:{username:username,content:comment,date:date}}},(err,reuslt)=>{
+        if(err){
+            console.log(err)
+        }else{
+            res.json({
+                code:200,
+                message:'发布成功'
+            })
+        }
+    })
+})
 module.exports = router

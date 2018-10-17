@@ -13,17 +13,21 @@ import articleRevisePage from './views/admin/articleRevisePage.vue'
 import adminRemoveArticle from './views/admin/adminRemoveArticle.vue'
 import adminUserOperate from './views/admin/adminUserOperate.vue'
 import adminCategory from './views/admin/adminCategory.vue'
+import articleContain from './views/user/articleContain.vue'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home
+    },{
+      path:'/p/:id',
+      name:'article',
+      component:articleContain
     },
     {
       path:'/register',
