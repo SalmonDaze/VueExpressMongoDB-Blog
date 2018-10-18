@@ -27,7 +27,7 @@
                     <el-main class='article_content' v-html='article.content'></el-main>
                     <el-footer class='article_info'>
                     <span>发布日期 {{article.create_at}}</span>
-                    <span>  |  作者 {{article.author}}</span>
+                    <span>  |  作者 {{article.author.name}}</span>
                     <span>  |  留言 {{article.comment.length}}</span>
                     <span>  |  浏览次数 {{article.views}}</span>
                     <span>  |  赞 {{article.like}}</span>
@@ -61,7 +61,6 @@
               <span><a style='margin-left:30px;' @click='logout'>用户登出</a></span>
             </el-main>
           </el-container>
-          
       </el-col>
     </el-row>
     

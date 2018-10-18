@@ -17,10 +17,6 @@
                 {{tag.name}}
             </el-tag>
             <br/>  
-            <div style="margin-top:30px;">
-                <el-radio v-model="radio" :label="this.$store.username">非匿名发布</el-radio>
-                <el-radio v-model="radio" :label='null'>匿名发布</el-radio>
-            </div>
             <br/>
             <el-input placeholder="请输入标题" v-model="title" clearable class='article_title'>
             </el-input>
@@ -47,7 +43,6 @@ export default{
             title:'',
             tags:[],
             tags_input:'',
-            radio:null,
             category:'',
             categoryList:[],
             btnswitch:false,
@@ -91,8 +86,12 @@ export default{
                 data:{
                     title:title,
                     content:content,
-                    author:radio,
+                    author:{
+                        name:this.$store.username,
+                        avatar:this.$store.avatar
+                    },
                     category:category,
+                    
                 },
                 headers:{
                 'Content-Type' : 'application/x-www-form-urlencoded'

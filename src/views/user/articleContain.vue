@@ -14,12 +14,14 @@
                     </span>
                     
                 <p>
-                    <span><i class='el-icon-info'> 作者 {{articleContent.author}}</i></span>
-                    <span><i class='el-icon-date'> 发布日期 {{articleContent.create_at}}</i></span>
-                    <span><i class='el-icon-view'> 浏览 {{articleContent.views}}</i></span>
-                    <span class='like' v-if='!isVoted'><i class='el-icon-star-off' @click='upvote'> 点赞 {{articleContent.like}}</i></span>
-                    <span class='like' v-else><i class='el-icon-star-on' @click='downvote'> 已点赞 {{articleContent.like}}</i></span>
-                    <span><i class='el-icon-edit'> 评论 {{commentLength}}</i></span>
+                    <div class='article_if'>
+                        <span>  {{articleContent.category}}</span>
+                        <span>  {{articleContent.create_at}}</span>
+                        <span> {{articleContent.views}}阅读</span>
+                        <span class='like' v-if='!isVoted'  @click='upvote'> {{articleContent.like}}喜欢</span>
+                        <span class='like' v-else  @click='upvote'> {{articleContent.like}}喜欢</span>
+                        <span> {{commentLength}}评论</span>
+                    </div>
                 </p>
                 <div class="hr">
                 </div>
@@ -28,7 +30,9 @@
                 <el-footer>
                 </el-footer>
                 <div style='background:white;rgb(10,10,10)'>
-                    <span class='footer_title' style='float:left;margin-left:30px;margin-top:30px;'>评论列表</span>
+                    
+                    <span class='footer_title' style='float:left;margin-left:80px;margin-top:30px;'><span style='margin-right:10px;font-size:1.2em;'>{{articleContent.comment.length}}</span>评论</span>
+                    <div class="hr" style='float:left;margin-left:80px;'></div>
                         <div v-if='commentLength == 0' style='margin-top:100px;margin-bottom:100px;'>
                             当前无评论
                         </div>
@@ -56,7 +60,13 @@
                         </div>
                 </div>
             </el-container>
-            
+        </div>
+        <div class='author_info'>
+            <img :src="avatar" class='avatar'>
+            <br/>
+            <span>{{name}}</span>
+            <br/>
+            <el-button type="primary">个人主页</el-button>
         </div>
     </div>
 </template>
@@ -75,6 +85,8 @@ import navbar from '../../components/navbar.vue'
                 commentList:[],
                 isVoted:false,
                 likeList:[],
+                avatar:'',
+                name:'',
             }
         },
         methods:{
@@ -147,7 +159,8 @@ import navbar from '../../components/navbar.vue'
                 this.articleContent = res.data.article
                 this.commentLength = res.data.article.comment.length
                 this.commentList = res.data.article.comment
-                console.log(res)
+                this.avatar = res.data.article.author.avatar
+                this.name = res.data.article.author.name
             })
 
             this.$http({
@@ -168,29 +181,39 @@ import navbar from '../../components/navbar.vue'
 }
 </script>
 <style lang="scss" scoped>
+.hr{
+    width:90%;
+    height: 1px;
+    background: rgb(200,200,200);
+    margin:0 auto;
+    margin-top:20px;
+}
     .article_container{
         width:100%;
-        background: rgb(230,230,230);
+        background: white;
+        float:left;
         .article{
-            width:70%;
+            width:50%;
             margin:0 auto;
             margin-top:60px;
             .el-container{
                 margin-top:50px;
                 margin:0 auto;
-                background: rgb(245,245,245);
+                width:900px;
+                float:left;
                 .footer_title{
-                .hr{
-                    width:95%;
-                    height: 1px;
-                    background: #409EFF;
-                    margin:0 auto;
-                    margin-top:20px;
-                }
+                
                 }
                 
                 .el-header{
                     padding-top:30px;
+                    .article_if{
+                        font-size:0.9em;
+                        span{
+                            margin-left:10px;
+                            color:rgb(150,150,150)
+                        }
+                    }
                     .like{
                         &:hover{
                             cursor: pointer;
@@ -226,5 +249,22 @@ import navbar from '../../components/navbar.vue'
         height: 45px;
         border-radius: 100px;
         vertical-align:middle;
+    }
+    .author_info{
+        width:340px;
+        height: 300px;
+        float:right;
+        margin-right:120px;
+        margin-top:20px;
+        img{
+            margin-bottom: 10px;
+        }
+        span{
+            color:#67C23A;
+            font-size:1.2em;
+        }
+        .el-button{
+            margin-top:20px;
+        }
     }
 </style>

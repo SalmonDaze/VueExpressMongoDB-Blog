@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Sc
 
 mongoose.connect('mongodb://localhost:27017/badapple',{useNewUrlParser:true})
 
@@ -21,8 +22,13 @@ let article = new mongoose.Schema({
     content: String,
     category: String,
     author: {
-        type: String,
-        default:'admin',
+        name:{
+            type: String
+        },
+        avatar:{
+            type: String,
+            default: `http://pgq3wq57e.bkt.clouddn.com/default_avatar.jpg`
+        }
     },
     create_at: {
         type: String,

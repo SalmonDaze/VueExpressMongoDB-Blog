@@ -25,6 +25,10 @@ router.post('/addArticle',(req,res,next)=>{
         content:content,
         category:category,
         create_at: getDate(),
+        author:{
+            name:articleInfo.author.name,
+            avatar:articleInfo.author.avatar
+        }
     }).then(()=>{
         res.json({
             code:200,
