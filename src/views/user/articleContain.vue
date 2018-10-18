@@ -2,7 +2,7 @@
     <div class='article_container'>
         <navbar>
             <template slot='header'>
-        <router-link :to="{path:'/'}"><span style='color:white;'>
+        <router-link :to="{path:'/'}"><span style='color:black;'>
           <img src='../../assets/reimu.png' style='height:35px;vertical-align:middle;margin-right:10px;'>Bad Apple!</span></router-link>
       </template>
         </navbar>
@@ -51,7 +51,7 @@
                                     <span style='font-size:0.8em;'>#{{commentList.indexOf(comment)+1}}</span><span style='font-size:0.8em;padding-top:10px;margin-left:20px'>{{comment.date}}</span>
                                 </div>
                                 <br/>
-                                <div class="hr2" style='width:70%;height:1px;background:rgb(220,220,220);margin-top:10px;'></div>
+                                <div class="hr2" style='width:90%;height:1px;background:rgb(220,220,220);margin-top:10px;'></div>
                             </div>
                         </div>
                         <div style='width:80%;margin:0 auto;'>
@@ -181,6 +181,11 @@ import navbar from '../../components/navbar.vue'
 }
 </script>
 <style lang="scss" scoped>
+a{
+    &:visited{
+        text-decoration: none;
+    }
+}
 .hr{
     width:90%;
     height: 1px;

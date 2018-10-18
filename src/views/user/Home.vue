@@ -2,7 +2,7 @@
   <div class="home">
     <navbar>
       <template slot='header'>
-        <router-link :to="{path:'/'}"><span style='color:white;'>
+        <router-link :to="{path:'/'}"><span style='color:black;'>
           <img src='../../assets/reimu.png' style='height:35px;vertical-align:middle;margin-right:10px;'>Bad Apple!</span></router-link>
       </template>
     </navbar>
@@ -87,7 +87,8 @@ export default {
       content:'',
       articleList:[],
       page:0,
-      avatar:''
+      avatar:'',
+      content:'',
     }
   },
   created(){
