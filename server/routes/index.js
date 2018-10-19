@@ -260,7 +260,15 @@ router.post('/getUserInformation',(req,res,next)=>{
     })
 })
 
-router.get('/getUserRecent',(req,res,next)=>{
-    let username = JSON.parse(Object.)
+router.post('/addViews',(req,res,next)=>{
+    let id = JSON.parse(Object.keys(req.body)[0]).id
+    Model.article.findOne({_id:id}).then((doc)=>{
+        doc.views++
+        doc.save()
+        res.json({
+            code:200,
+            message:'浏览+1'
+        })
+    })
 })
 module.exports = router

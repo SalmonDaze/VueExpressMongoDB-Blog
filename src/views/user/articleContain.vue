@@ -173,6 +173,17 @@ import navbar from '../../components/navbar.vue'
 
             this.$http({
                 method:'POST',
+                url:'http://localhost:3000/addViews',
+                data:{
+                    id:this.$route.params.id
+                },
+                headers:{'Content-Type' : 'application/x-www-form-urlencoded'}
+            }).then((res)=>{
+                console.log(res)
+            })
+
+            this.$http({
+                method:'POST',
                 url:'http://localhost:3000/checkvote',
                 data:{
                     id:this.$route.params.id
