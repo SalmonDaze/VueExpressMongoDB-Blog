@@ -4,7 +4,11 @@
       <el-col :span="4" class='nav_header'>
         <slot name='header'></slot>
       </el-col>
-      <el-col :span="16"><div class="grid-content bg-purple-light">&nbsp;</div></el-col>
+      <el-col :span="16"><div class="grid-content bg-purple-light">
+        <div v-if='$store.username'>
+          <img :src='$store.avatar' class='avatar'>
+        </div>  
+      </div></el-col>
       <el-col :span="4" class='nav_footer'>
         <slot name='footer'></slot>
       </el-col>
@@ -67,6 +71,12 @@ export default {
   }
   a{
     margin-top:100px;
+  }
+  .avatar{
+    margin-top:10px;
+    width:40px;
+    height:40px;
+    border-radius: 100px;
   }
 </style>
 

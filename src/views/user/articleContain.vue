@@ -19,7 +19,7 @@
                         <span>  {{articleContent.create_at}}</span>
                         <span> {{articleContent.views}}阅读</span>
                         <span class='like' v-if='!isVoted'  @click='upvote'> {{articleContent.like}}喜欢</span>
-                        <span class='like' v-else  @click='upvote'> {{articleContent.like}}喜欢</span>
+                        <span class='like' v-else  @click='downvote' style='color:#F56C6C'> {{articleContent.like}}喜欢</span>
                         <span> {{commentLength}}评论</span>
                     </div>
                 </p>
@@ -104,7 +104,9 @@ import navbar from '../../components/navbar.vue'
                         id:this.$route.params.id,
                         comment:comment,
                         username:this.$store.username,
-                        avatar:this.$store.avatar
+                        avatar:this.$store.avatar,
+                        article:this.articleContent,
+                        
                     },headers:{
                         'Content-Type' : 'application/x-www-form-urlencoded'
                     }
@@ -113,6 +115,7 @@ import navbar from '../../components/navbar.vue'
                         type:'success',
                         message:'发表成功！'
                     })
+                    console.log(this.$route.params.id)
                 })
             },
             upvote(){
@@ -197,9 +200,8 @@ import navbar from '../../components/navbar.vue'
 </script>
 <style lang="scss" scoped>
 a{
-    &:visited{
+    
         text-decoration: none;
-    }
 }
 .hr{
     width:90%;

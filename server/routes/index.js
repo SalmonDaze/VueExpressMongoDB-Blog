@@ -138,6 +138,10 @@ router.post('/addArticle',(req,res,next)=>{
         },
         create_at:getDate()
     }).then(()=>{
+        Model.player.findOne({username:article.author.name}).then(doc=>{
+            doc.articles.push({title:article.title,content:article.content,category:category,create_at:getDate()})
+            doc.save()
+        }).catch(e=>{console.log(e)})
         res.json({
             code:200,
             message:'文章发布成功'
@@ -171,11 +175,21 @@ router.post('/publishComment',(req,res,next)=>{
     let id = articleInfo.id
     let username = articleInfo.username
     let avatar = articleInfo.avatar
+    let article = articleInfo.article
     let date = getDate()
     Model.article.updateOne({_id:id},{$push:{comment:{username:username,content:comment,date:date,avatar:avatar}}},(err,reuslt)=>{
         if(err){
             console.log(err)
         }else{
+            Model.player.findOne({username:username}).then((rdoc)=>{
+                isExsit = false
+                rdoc.comments.map( x => {
+                    if(x.title === article.title)
+                    isExsit = true
+                })
+                isExsit ? '' : rdoc.comments.push(article)
+                rdoc.save()
+            })
             res.json({
                 code:200,
                 message:'发布成功'
@@ -189,14 +203,19 @@ router.post('/upvote',(req,res,next)=>{
     let id = info.id
     let username = info.username
     Model.article.findOne({_id:id}).then((doc)=>{
-            doc.like++
-            doc.likeList.push(username)
-            doc.save()
-            res.json({
-                code:200,
-                message:'点赞成功!'
-            })
+        doc.like++
+        doc.likeList.push(username)
+        doc.save()
+        Model.player.findOne({username:username}).then((rdoc)=>{
+            rdoc.likes.push(doc)
+            rdoc.save()
         })
+        res.json({
+            code:200,
+            message:'点赞成功!'
+        })
+    })
+    
     })
 
 router.post('/downvote',(req,res,next)=>{
@@ -208,6 +227,11 @@ router.post('/downvote',(req,res,next)=>{
             let index = doc.likeList.indexOf(username)
             doc.likeList.splice(index,1)
             doc.save()
+            Model.player.findOne({username:username}).then((rdoc)=>{
+                let rindex = rdoc.likes.indexOf(doc)
+                rdoc.likes.splice(rindex,1)
+                rdoc.save()
+            })
             res.json({
                 code:200,
                 message:'取消成功!'
@@ -227,4 +251,14 @@ router.post('/checkvote',(req,res,next)=>{
         })
     })
 
+router.post('/getUserInformation',(req,res,next)=>{
+    let username = JSON.parse(Object.keys(req.body)[0]).username
+    Model.player.findOne({username:username}).then((doc)=>{
+        res.json({
+            code:200,
+            message:'查找成功',
+            user:doc
+        })
+    })
+})
 module.exports = router

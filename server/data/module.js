@@ -15,6 +15,18 @@ let userSchema = new mongoose.Schema({
     avatar_key: {
         type:String,
         default: '',
+    },
+    likes:{
+        type: Array,
+        default: []
+    },
+    comments:{
+        type: Array,
+        default:[]
+    },
+    articles:{
+        type: Array,
+        default:[]
     }
 })
 let article = new mongoose.Schema({

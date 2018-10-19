@@ -15,6 +15,8 @@ import adminUserOperate from './views/admin/adminUserOperate.vue'
 import adminCategory from './views/admin/adminCategory.vue'
 import articleContain from './views/user/articleContain.vue'
 
+
+
 Vue.use(Router)
 
 export default new Router({

@@ -14,12 +14,14 @@
       if(res.data.code==200){
         this.userCookie = res.data.message
         this.$store.username = res.data.message.username
-        console.log(this.$store.username)
+        
         if(!res.data.message.avatar_key){
           this.$store.avatar = 'http://pgq3wq57e.bkt.clouddn.com/default_avatar.jpeg'
         }else{
           this.$store.avatar = `http://pgq3wq57e.bkt.clouddn.com/${res.data.message.avatar_key}`
         }
+        console.log(this.$store.username)
+        console.log(this.$store.avatar)
       }
     })
     }

@@ -17,8 +17,6 @@ router.post('/addArticle',(req,res,next)=>{
     let title = articleInfo.title
     let content = articleInfo.content
     let category = articleInfo.category
-    console.log(content)
-    console.log(articleInfo)
     Model.article.create({
         category:category,
         title:title,
@@ -30,6 +28,11 @@ router.post('/addArticle',(req,res,next)=>{
             avatar:articleInfo.author.avatar
         }
     }).then(()=>{
+        Model.player.findOne({username:articleInfo.author.name}).then(doc=>{
+            console.log(doc)
+            doc.articles.push({title:title,content:content,category:category,create_at:create_at})
+            doc.save()
+        }).catch(e=>{console.log(e)})
         res.json({
             code:200,
             message:'文章添加成功'
