@@ -70,7 +70,6 @@ export default{
         async addArticle(){
             let title = this.title
             let content = this.content
-            let radio = this.radio
             let category = this.category
             if( title == '' || content == '' || category == ''){
                 this.$message({

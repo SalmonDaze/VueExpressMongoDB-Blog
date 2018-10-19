@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Sc
+const Schema = mongoose.Schema
 
 mongoose.connect('mongodb://localhost:27017/badapple',{useNewUrlParser:true})
 
@@ -17,8 +17,8 @@ let userSchema = new mongoose.Schema({
         default: '',
     },
     likes:{
-        type: Array,
-        default: []
+        type: Schema.Types.ObjectId,
+        ref:'article'
     },
     comments:{
         type: Array,

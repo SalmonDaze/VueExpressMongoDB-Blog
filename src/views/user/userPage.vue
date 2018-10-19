@@ -1,6 +1,11 @@
 <template>
     <div class='userpage_container'>
-        <navbar></navbar>
+        <navbar>
+            <template slot='header'>
+        <router-link :to="{path:'/'}"><span style='color:black;'>
+          <img src='../../assets/reimu.png' style='height:35px;width:32px;vertical-align:middle;margin-right:10px;'>Bad Apple!</span></router-link>
+      </template>
+        </navbar>
         <div class='user_info'>
             <img :src='`http://pgq3wq57e.bkt.clouddn.com/${user.avatar_key}`'>
             <br/>
@@ -8,7 +13,21 @@
             <br/>
             <p style='margin-top:10px;'>注册日期 {{user.create_at}}</p>
         </div>
-        
+        <div class='recent_article'>
+            <template>
+                <el-table :data="tableData1" style="width: 100%" @row-click='openArticle'>
+                <el-table-column prop="article" label="最近回复文章"></el-table-column>
+                </el-table>
+            </template>
+        </div>
+        <div class='recent_comment'>
+            <template>
+                <el-table :data="tableData2" style="width: 100%" @row-click='openArticle'>
+                <el-table-column prop="article" label="最近发布文章"></el-table-column>
+                </el-table>
+            </template>
+        </div>
+        {{tableData1}}
     </div>
 </template>
 <script>
@@ -30,14 +49,33 @@ import navbar from '../../components/navbar.vue'
             }
         }).then((res)=>{
             this.user = res.data.user
+            console.log(res.data.user)
+            if(res.data.user.comments != 0){
+                res.data.user.comments.map( x => {
+                    this.tableData1.push({article:x.article.title,id:x.article._id})
+                })
+            }
+            if(res.data.user.articles != 0){
+                res.data.user.articles.map( x => {
+                    console.log(x)
+                    this.tableData2.push({article:x.title,id:x._id})
+                })
+            }
         })
         },
         data(){
             return{
                 username:this.$route.params.id,
                 user:{},
+                tableData1:[],
+                tableData2:[],
             }
         },
+        methods:{
+            openArticle(row){
+                this.$router.push({path:`/p/${row.id}`})
+            }
+        }
     }
 </script>
 <style lang="scss" scoped>
@@ -58,6 +96,24 @@ import navbar from '../../components/navbar.vue'
             span{
                 margin-bottom:10px;
                 color:#7a8381;
+            }
+        }
+        .recent_article{
+            width:60%;
+            margin:0 auto;
+            margin-top:30px;
+            margin-bottom:200px;
+        }
+        .recent_comment{
+            
+            width:60%;
+            height:500px;
+            margin:0 auto;
+            margin-top:30px;
+            thead{
+                color:grey;
+                padding-left:20px;
+                margin:0 auto;
             }
         }
     }

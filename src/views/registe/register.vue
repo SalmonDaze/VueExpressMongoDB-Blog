@@ -116,7 +116,7 @@ export default {
     },
     handleAvatarSuccess(res, file) {   //上传成功后在图片框显示图片
         this.imageUrl = URL.createObjectURL(file.raw)
-        this.avatar_key = res.key
+        this.avatar_key = `${res.key}?imageView2/1/w/200/h/200/q/75|imageslim`
       },
       handleError(res) {   //显示错误
         console.log(res)

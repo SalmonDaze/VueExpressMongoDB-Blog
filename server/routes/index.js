@@ -123,8 +123,6 @@ router.post('/addArticle',(req,res,next)=>{
     let article = JSON.parse(Object.keys(req.body)[0])
     let author = article.author.name || 'Anonymous'
     let category = article.category
-    console.log(article)
-    console.log(article.content)
     Model.article.create({
         title:article.title,
         content:article.content,
@@ -137,9 +135,9 @@ router.post('/addArticle',(req,res,next)=>{
             avatar:article.author.avatar
         },
         create_at:getDate()
-    }).then(()=>{
+    }).then((rres)=>{
         Model.player.findOne({username:article.author.name}).then(doc=>{
-            doc.articles.push({title:article.title,content:article.content,category:category,create_at:getDate()})
+            doc.articles.push({title:article.title,content:article.content,category:category,create_at:getDate(),_id:rres._id})
             doc.save()
         }).catch(e=>{console.log(e)})
         res.json({
@@ -182,12 +180,12 @@ router.post('/publishComment',(req,res,next)=>{
             console.log(err)
         }else{
             Model.player.findOne({username:username}).then((rdoc)=>{
-                isExsit = false
+                let isExsit = false
                 rdoc.comments.map( x => {
                     if(x.title === article.title)
                     isExsit = true
                 })
-                isExsit ? '' : rdoc.comments.push(article)
+                isExsit ? '' : rdoc.comments.push({article:article,_id:id})
                 rdoc.save()
             })
             res.json({
@@ -260,5 +258,9 @@ router.post('/getUserInformation',(req,res,next)=>{
             user:doc
         })
     })
+})
+
+router.get('/getUserRecent',(req,res,next)=>{
+    let username = JSON.parse(Object.)
 })
 module.exports = router

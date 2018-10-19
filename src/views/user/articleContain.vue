@@ -69,7 +69,7 @@
             <img :src="avatar" class='avatar'>
             <span style='margin-left:10px;'>{{name}}</span>
             <br/>
-            <el-button type="primary">个人主页</el-button>
+            <el-button type="primary" @click='$router.push({path:`/user/${name}`})'>个人主页</el-button>
         </div>
     </div>
 </template>
