@@ -134,6 +134,7 @@ export default {
         url:'http://localhost:3000/logout'
       }).then(()=>{
         this.userCookie = !this.userCookie
+        this.$store.commit('init')
       })
     },
     }

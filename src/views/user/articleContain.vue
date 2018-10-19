@@ -31,7 +31,7 @@
                 </el-footer>
                 <div style='background:white;rgb(10,10,10)'>
                     
-                    <span class='footer_title' style='float:left;margin-left:80px;margin-top:30px;'><span style='margin-right:10px;font-size:1.2em;'>{{articleContent.comment.length}}</span>评论</span>
+                    <span class='footer_title' style='float:left;margin-left:80px;margin-top:30px;'><span style='margin-right:10px;font-size:1.2em;'>{{commentLength}}</span>评论</span>
                     <div class="hr" style='float:left;margin-left:80px;'></div>
                         <div v-if='commentLength == 0' style='margin-top:100px;margin-bottom:100px;'>
                             当前无评论
@@ -40,7 +40,7 @@
                             <div v-for='comment in commentList' :key='comment.create_at' style='margin-top:20px;text-align:left;margin-left:140px;'>
                                 <div style='margin-bottom:5px;'>
                                     <img :src="comment.avatar" class='avatar'>
-                                    <span style='color:#67C23A;font-size:1.2em;margin-left:10px;'>{{comment.username}}</span><span style='margin-left:6px;font-size:0.9em;'>发表:</span>
+                                    <span style='color:#67C23A;font-size:1.2em;margin-left:10px;'>{{comment.username}}</span><span v-if='comment.username ==  name ' style='font-size:0.9em;margin-left:5px;color:#409EFF;'>作者</span><span style='margin-left:6px;font-size:0.9em;'>发表:</span>
                                 </div>
                                 <br/>
                                 <div style='line-height:25px;margin-right:100px;'>
@@ -55,16 +55,19 @@
                             </div>
                         </div>
                         <div style='width:80%;margin:0 auto;'>
-                            <el-input type="textarea" :rows="6" placeholder="快来发表评论吧" v-model='comment' style='margin-top:30px;'></el-input>
-                            <el-button plain style='float:left;margin-top:20px;margin-bottom:40px;' @click='publishComment'>发表评论</el-button>
+                            
+                            <el-input type="textarea" :rows="6" :placeholder="textarea_msg" v-model='comment' style='margin-top:30px;' :disabled="btnswitch">
+                                <div class='zhezhao'></div>
+                            </el-input>
+                            
+                            <el-button plain style='float:left;margin-top:20px;margin-bottom:40px;' @click='publishComment' :disabled="btnswitch">发表评论</el-button>
                         </div>
                 </div>
             </el-container>
         </div>
         <div class='author_info'>
             <img :src="avatar" class='avatar'>
-            <br/>
-            <span>{{name}}</span>
+            <span style='margin-left:10px;'>{{name}}</span>
             <br/>
             <el-button type="primary">个人主页</el-button>
         </div>
@@ -87,6 +90,8 @@ import navbar from '../../components/navbar.vue'
                 likeList:[],
                 avatar:'',
                 name:'',
+                btnswitch:true,
+                textarea_msg:'',
             }
         },
         methods:{
@@ -177,6 +182,13 @@ import navbar from '../../components/navbar.vue'
                 }
             )
         })
+        if(this.$store.username){
+            this.btnswitch = false
+            this.textarea_msg = '快来发表评论吧'
+        }else{
+            this.btnswitch = true
+            this.textarea_msg = '请先登陆后再评论'
+        }
     },
 }
 </script>
@@ -199,7 +211,7 @@ a{
         float:left;
         .article{
             width:50%;
-            margin:0 auto;
+            margin-left:250px;
             margin-top:60px;
             .el-container{
                 margin-top:50px;
@@ -256,7 +268,7 @@ a{
         vertical-align:middle;
     }
     .author_info{
-        width:340px;
+        width:300px;
         height: 300px;
         float:right;
         margin-right:120px;
@@ -271,5 +283,10 @@ a{
         .el-button{
             margin-top:20px;
         }
+    }
+    .zhezhao{
+        background: black;
+        width:100%;
+        height:100px;
     }
 </style>

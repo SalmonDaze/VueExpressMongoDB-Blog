@@ -9,7 +9,10 @@ export default new Vuex.Store({
     avatar:'',
   },
   mutations: {
-
+    init(){
+      this.username = '',
+      this.avatar = ''
+    }
   },
   actions: {
 
