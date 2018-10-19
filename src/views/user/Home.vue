@@ -150,9 +150,10 @@ export default {
     min-height:500px;
     .none_article{
       background: white;
-      height: 150px;
+      height: 170px;
       text-align: center;
       padding-top: 130px;
+      margin-top:5px;
     }
       .grid{
       margin-top:50px;

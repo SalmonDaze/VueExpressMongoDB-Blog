@@ -54,7 +54,7 @@
                                 <div class="hr2" style='width:90%;height:1px;background:rgb(220,220,220);margin-top:10px;'></div>
                             </div>
                         </div>
-                        <div style='width:80%;margin:0 auto;'>
+                        <div style='width:80%;margin-left:130px;'>
                             
                             <el-input type="textarea" :rows="6" :placeholder="textarea_msg" v-model='comment' style='margin-top:30px;' :disabled="btnswitch">
                                 <div class='zhezhao'></div>
@@ -182,6 +182,9 @@ import navbar from '../../components/navbar.vue'
                 }
             )
         })
+        
+    },
+    mounted(){
         if(this.$store.username){
             this.btnswitch = false
             this.textarea_msg = '快来发表评论吧'
@@ -189,7 +192,7 @@ import navbar from '../../components/navbar.vue'
             this.btnswitch = true
             this.textarea_msg = '请先登陆后再评论'
         }
-    },
+    }
 }
 </script>
 <style lang="scss" scoped>
