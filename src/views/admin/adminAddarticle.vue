@@ -81,7 +81,7 @@ export default{
             try {
                 let res = await this.$http({
                 method:'POST',
-                url:'http://localhost:3000/addArticle',
+                url:'/addArticle',
                 data:{
                     title:title,
                     content:content,
@@ -114,7 +114,7 @@ export default{
     },
     created(){
         this.$http({
-            url:'http://localhost:3000/admin/getCategory',
+            url:'/admin/getCategory',
             method:'GET',
             headers:{
                 'Content-Type' : 'application/x-www-form-urlencoded'

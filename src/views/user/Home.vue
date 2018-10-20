@@ -88,18 +88,17 @@ export default {
       articleList:[],
       page:0,
       avatar:'',
-      content:'',
     }
   },
   created(){
-    this.$http.get('http://localhost:3000/articleCount').then((res)=>{
+    this.$http.get('/articleCount').then((res)=>{
             this.page = res.data.length + 10
         })
     this.getData(0)
       this.$http({
       method:'GET',
       withCredentials: true,
-      url:'http://localhost:3000/checkLogin'
+      url:'/checkLogin'
     }).then((res)=>{
       if(res.data.code==200){
         this.userCookie = res.data.message
@@ -113,7 +112,7 @@ export default {
     },
     getData(pages){
       this.$http({
-          url:'http://localhost:3000/getArticle',
+          url:'/getArticle',
           method:'POST',
           headers:{
               'Content-Type' : 'application/x-www-form-urlencoded'
@@ -131,7 +130,7 @@ export default {
       this.$http({
         method:'POST',
         withCredentials:true,
-        url:'http://localhost:3000/logout'
+        url:'/logout'
       }).then(()=>{
         this.userCookie = !this.userCookie
         this.$store.commit('init')

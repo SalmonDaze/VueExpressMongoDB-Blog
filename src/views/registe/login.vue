@@ -54,7 +54,7 @@ export default {
         let res = await this.$http({
         method:'POST',
         withCredentials:true,
-        url:'http://localhost:3000/login',
+        url:'/login',
         data:{
           username:login_username,
           password:login_password

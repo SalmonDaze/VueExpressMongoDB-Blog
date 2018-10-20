@@ -158,7 +158,7 @@ import navbar from '../../components/navbar.vue'
         created(){
             this.$http({
                 method:'POST',
-                url:'http://localhost:3000/getArticleContent',
+                url:'/getArticleContent',
                 data:{
                     id:this.$route.params.id
                 },
@@ -173,7 +173,7 @@ import navbar from '../../components/navbar.vue'
 
             this.$http({
                 method:'POST',
-                url:'http://localhost:3000/addViews',
+                url:'/addViews',
                 data:{
                     id:this.$route.params.id
                 },
@@ -184,7 +184,7 @@ import navbar from '../../components/navbar.vue'
 
             this.$http({
                 method:'POST',
-                url:'http://localhost:3000/checkvote',
+                url:'/checkvote',
                 data:{
                     id:this.$route.params.id
                 },

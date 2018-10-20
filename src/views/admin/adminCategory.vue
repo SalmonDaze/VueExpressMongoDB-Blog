@@ -27,7 +27,7 @@
             }
         },
         created(){
-            this.$http.get('http://localhost:3000/admin/getCategory').then((res)=>{
+            this.$http.get('/admin/getCategory').then((res)=>{
                 console.log(res.data.data)
                 for(let i=0 ;i<res.data.data.length;i++){
                     this.tableData.push({
@@ -43,7 +43,7 @@
         methods:{
             deleteCategory(row){
                 this.$http({
-                    url:'http://localhost:3000/admin/deleteCategory',
+                    url:'/admin/deleteCategory',
                     method:'POST',
                     headers:{
                         'Content-Type' : 'application/x-www-form-urlencoded'
@@ -75,7 +75,7 @@
                                     }
                 }).then(({value})=>{
                     this.$http({
-                        url:'http://localhost:3000/admin/addCategory',
+                        url:'/admin/addCategory',
                         method:'POST',
                         data:{
                             title:value

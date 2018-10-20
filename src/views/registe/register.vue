@@ -72,7 +72,7 @@ export default {
     async registry(){
       let username = this.username
       let password = this.password
-      let avatar_key = this.avatar_key
+      let avatar_key = this.avatar_key ? this.avatar_key : 'default_avatar.jpeg'
       if(this.repassword != this.password){
         this.msgs = '输入的密码不一致'
         this.$message.error(this.msgs)
@@ -88,7 +88,7 @@ export default {
         let res = await this.$http({
         method:'POST',
         withCredentials:true,
-        url:'http://localhost:3000/register',
+        url:'/register',
         data:{
           username:username,
           password:password,

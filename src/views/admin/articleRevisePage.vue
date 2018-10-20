@@ -60,7 +60,7 @@ export default{
             try{
                 let res = await this.$http({
                     method:'POST',
-                    url:'http://localhost:3000/admin/getArticle',
+                    url:'/admin/getArticle',
                     data:{
                         id:this.$route.params.id
                     },
@@ -96,7 +96,7 @@ export default{
             try{
                 let res = await this.$http({
                     method:'POST',
-                    url:'http://localhost:3000/admin/reviseArticle',
+                    url:'/admin/reviseArticle',
                     data:{
                         title:title,
                         content:content,
@@ -139,7 +139,7 @@ export default{
     },
     created(){
         this.getArticle()
-        this.$http.get('http://localhost:3000/admin/getCategory').then((res)=>{
+        this.$http.get('/admin/getCategory').then((res)=>{
                 console.log(res.data.data)
                 for(let i=0 ;i<res.data.data.length;i++){
                     this.categoryList.push(res.data.data[i].title,)

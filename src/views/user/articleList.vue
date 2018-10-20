@@ -37,7 +37,7 @@
             }
         },
         created(){
-            this.$http.get('http://localhost:3000/getArticle').then((res)=>{
+            this.$http.get('/getArticle').then((res)=>{
                 this.articleList = res.data
             })
         },
@@ -48,7 +48,7 @@
                 this.$http({
                     method:'POST',
                     withCredentials:true,
-                    url:'http://localhost:3000/admin/addArticle',
+                    url:'/admin/addArticle',
                     data:{
                         title:title,
                         content:content,

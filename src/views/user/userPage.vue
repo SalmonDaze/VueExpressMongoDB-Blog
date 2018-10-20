@@ -39,7 +39,7 @@ import navbar from '../../components/navbar.vue'
         },
         created(){
             this.$http({
-            url:'http://localhost:3000/getUserInformation',
+            url:'/getUserInformation',
             method:'POST',
             headers:{
                 'Content-Type' : 'application/x-www-form-urlencoded'

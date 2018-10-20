@@ -39,7 +39,7 @@ export default {
         }
     },
     created(){
-        this.$http.get('http://localhost:3000/admin/getUserCount').then((res)=>{
+        this.$http.get('/admin/getUserCount').then((res)=>{
             this.page = res.data.length
         })
         this.getData(0)
@@ -53,7 +53,7 @@ export default {
                 type:'warning'
             }).then(()=>{
                 this.$http({
-                    url:'http://localhost:3000/admin/improvePower',
+                    url:'/admin/improvePower',
                     method:'POST',
                     data:{
                         uid:UID
@@ -95,7 +95,7 @@ export default {
                 type:'warning'
             }).then(()=>{
                 this.$http({
-                url:'http://localhost:3000/admin/removeUser',
+                url:'/admin/removeUser',
                 method:'POST',
                 data:{
                     uid:UID
@@ -128,7 +128,7 @@ export default {
         },
         getData(pages){
             this.$http({
-                url:'http://localhost:3000/admin/getUserList',
+                url:'/admin/getUserList',
                 method:'POST',
                 headers:{
                     'Content-Type' : 'application/x-www-form-urlencoded'

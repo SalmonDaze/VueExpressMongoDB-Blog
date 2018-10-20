@@ -40,7 +40,7 @@ export default {
         }
     },
     created(){
-        this.$http.get('http://localhost:3000/articleCount').then((res)=>{
+        this.$http.get('/articleCount').then((res)=>{
             this.page = res.data.length
         })
         this.getData(0)
@@ -59,7 +59,7 @@ export default {
         },
         getData(pages){
             this.$http({
-                url:'http://localhost:3000/getArticle',
+                url:'/getArticle',
                 method:'POST',
                 headers:{
                     'Content-Type' : 'application/x-www-form-urlencoded'

@@ -59,18 +59,21 @@ router.post('/login',(req,res,next)=>{
     let user = JSON.parse(Object.keys(req.body)[0])
     let username = user.username
     let password = user.password
-    let userInfo = {
-        username: username,
-        password: password,
-    }
     Model.player.findOne({username:username,password:password}).then((result)=>{
+        
         if(!result){
             res.json({
                 code:1,
                 message:'用户名或者密码错误'
             })
         }else{
-            let userInfomation = result
+            let userInfo = {
+                username: username,
+                password: password,
+                avatar_key:result.avatar_key,
+                isAdmin:result.isAdmin,
+            }
+            let userInfomation = userInfo
             res.cookie('userInfo',userInfomation,{maxAge:6000000})
             res.json({
                 code:200,
@@ -204,10 +207,6 @@ router.post('/upvote',(req,res,next)=>{
         doc.like++
         doc.likeList.push(username)
         doc.save()
-        Model.player.findOne({username:username}).then((rdoc)=>{
-            rdoc.likes.push(doc)
-            rdoc.save()
-        })
         res.json({
             code:200,
             message:'点赞成功!'

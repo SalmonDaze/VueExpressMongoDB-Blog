@@ -33,7 +33,7 @@ export default {
     this.$http({
       method:'GET',
       withCredentials: true,
-      url:'http://localhost:3000/checkLogin'
+      url:'/checkLogin'
     }).then((res)=>{
       if(res.data.code==200){
         this.userCookie = res.data.message
@@ -45,7 +45,7 @@ export default {
       this.$http({
         method:'POST',
         withCredentials:true,
-        url:'http://localhost:3000/logout'
+        url:'/logout'
       }).then(()=>{
         this.userCookie = !this.userCookie
         })
