@@ -196,7 +196,7 @@ import navbar from '../../components/navbar.vue'
         
     },
     mounted(){
-        if(this.$store.username){
+        if(sessionStorage.getItem('username')){
             this.btnswitch = false
             this.textarea_msg = '快来发表评论吧'
         }else{
