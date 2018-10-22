@@ -27,7 +27,6 @@
                 </el-table>
             </template>
         </div>
-        {{tableData1}}
     </div>
 </template>
 <script>

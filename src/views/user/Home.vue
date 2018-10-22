@@ -35,7 +35,7 @@
                 </el-container>
                 </router-link>
             </div>
-            <el-pagination layout="prev, pager, next" :total="page" @current-change='changePage' background style='margin-bottom:20px;margin-top:10px;'>
+            <el-pagination :page-size='5' layout="prev, pager, next" :total="page" @current-change='changePage' background style='margin-bottom:20px;margin-top:10px;'>
             </el-pagination>
         </div>
       </el-col>
@@ -92,7 +92,8 @@ export default {
   },
   created(){
     this.$http.get('/articleCount').then((res)=>{
-            this.page = res.data.length + 10
+            this.page = res.data.length
+            console.log(res.data)
         })
     this.getData(0)
       this.$http({

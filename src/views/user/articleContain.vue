@@ -112,6 +112,8 @@ import navbar from '../../components/navbar.vue'
                         type:'success',
                         message:'发表成功！'
                     })
+                    this.btnswitch = !this.btnswitch
+                    setTimeout(()=>{location.reload()},1000)
                     console.log(this.$route.params.id)
                 })
             },
