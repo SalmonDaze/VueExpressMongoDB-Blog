@@ -48,15 +48,22 @@ import navbar from '../../components/navbar.vue'
             }
         }).then((res)=>{
             this.user = res.data.user
-            console.log(res.data.user)
             if(res.data.user.comments != 0){
                 res.data.user.comments.map( x => {
-                    this.tableData1.push({article:x.article.title,id:x.article._id})
+                    let isExsit = false
+                    for(let i=0;i<this.tableData1.length;i++){
+                        if(this.tableData1[i]['id'] == x._id){
+                            isExsit = true
+                        }
+                    }
+                    if(!isExsit){
+                        this.tableData1.push({article:x.article.title,id:x._id})
+                        isExsit = !isExsit
+                    }
                 })
             }
             if(res.data.user.articles != 0){
                 res.data.user.articles.map( x => {
-                    console.log(x)
                     this.tableData2.push({article:x.title,id:x._id})
                 })
             }

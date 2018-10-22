@@ -24,7 +24,6 @@ if(sessionStorage.getItem('username')){
     username:sessionStorage.getItem('username'),
     avatar:sessionStorage.getItem('avatar')
   })
-  console.log(store.state)
 }
 
 export default new Router({
