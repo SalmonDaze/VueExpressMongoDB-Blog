@@ -12,8 +12,6 @@
                     <span class='title'>
                         {{articleContent.title}}
                     </span>
-                    
-                <p>
                     <div class='article_if'>
                         <span>  {{articleContent.category}}</span>
                         <span>  {{articleContent.create_at}}</span>
@@ -22,7 +20,6 @@
                         <span class='like' v-else  @click='downvote' style='color:#F56C6C'> {{articleContent.like}}喜欢</span>
                         <span> {{commentLength}}评论</span>
                     </div>
-                </p>
                 <div class="hr">
                 </div>
                 </el-header>

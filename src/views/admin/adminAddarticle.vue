@@ -28,7 +28,7 @@
     </div>
 </template>
 <script>
-const toolbarOptions = require('../../../static/config.js').toolbarOptions
+import toolbarOptions from '../../../static/config.js'
 export default{
     name:'Addarticle',
     data(){

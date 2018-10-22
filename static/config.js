@@ -1,5 +1,4 @@
-module.exports = {
-    toolbarOptions : [
+let toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'],   
         ['blockquote', 'code-block'],
         [{ 'script': 'sub'}, { 'script': 'super' }],                           
@@ -10,4 +9,4 @@ module.exports = {
         [{ 'align': [] }],
         ['clean']
       ]
-}
+export{toolbarOptions}
