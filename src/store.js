@@ -18,10 +18,12 @@ export default new Vuex.Store({
       sessionStorage.removeItem('isLogin')
       this.isLogin = false
     },
-    add_login_user(){
-      sessionStorage.setItem('username',this.username)
-      sessionStorage.setItem('avatar',this.avatar)
-      sessionStorage.setItem('isLogin',true)
+    add_login_user(state,payload){
+      state.username = payload.username
+      state.avatar =  payload.avatar
+      sessionStorage.setItem('username',payload.username)
+      sessionStorage.setItem('avatar',payload.avatar)
+      state.isLogin = sessionStorage.setItem('isLogin',true)
     },
   },
   actions: {

@@ -14,7 +14,6 @@
       if(res.data.code==200){
         this.userCookie = res.data.message
         this.$store.username = res.data.message.username
-        this.$store.commit('add_login_user')
         if(!res.data.message.avatar_key){
           this.$store.avatar = 'http://pgq3wq57e.bkt.clouddn.com/default_avatar.jpeg'
         }else{

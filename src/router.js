@@ -14,10 +14,18 @@ import adminRemoveArticle from './views/admin/adminRemoveArticle.vue'
 import adminUserOperate from './views/admin/adminUserOperate.vue'
 import adminCategory from './views/admin/adminCategory.vue'
 import articleContain from './views/user/articleContain.vue'
-
+import store from './store'
 
 
 Vue.use(Router)
+
+if(sessionStorage.getItem('username')){
+  store.commit('add_login_user',{
+    username:sessionStorage.getItem('username'),
+    avatar:sessionStorage.getItem('avatar')
+  })
+  console.log(store.state)
+}
 
 export default new Router({
   base: process.env.BASE_URL,

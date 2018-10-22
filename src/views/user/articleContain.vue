@@ -114,7 +114,6 @@ import navbar from '../../components/navbar.vue'
                     })
                     this.btnswitch = !this.btnswitch
                     setTimeout(()=>{location.reload()},1000)
-                    console.log(this.$route.params.id)
                 })
             },
             upvote(){
@@ -178,7 +177,6 @@ import navbar from '../../components/navbar.vue'
                 },
                 headers:{'Content-Type' : 'application/x-www-form-urlencoded'}
             }).then((res)=>{
-                console.log(res)
             })
 
             this.$http({
@@ -198,7 +196,7 @@ import navbar from '../../components/navbar.vue'
         
     },
     mounted(){
-        if(sessionStorage.getItem('username')){
+        if(this.$store.state.username){
             this.btnswitch = false
             this.textarea_msg = '快来发表评论吧'
         }else{
