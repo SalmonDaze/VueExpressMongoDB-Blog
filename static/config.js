@@ -9,4 +9,4 @@ let toolbarOptions = [
         [{ 'align': [] }],
         ['clean']
       ]
-export{toolbarOptions}
+export default {toolbarOptions}
