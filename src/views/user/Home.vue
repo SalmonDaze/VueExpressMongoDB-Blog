@@ -63,7 +63,6 @@
           </el-container>
       </el-col>
     </el-row>
-    <button @click='clickBtn()'>qqqqqqqqqqqqqq</button>
   </div>
 </template>
 

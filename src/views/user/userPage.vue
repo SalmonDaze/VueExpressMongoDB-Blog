@@ -27,14 +27,20 @@
                 </el-table>
             </template>
         </div>
+        
+            <chat :name='user.username' :avatar='`http://pgq3wq57e.bkt.clouddn.com/${user.avatar_key}`'>
+
+            </chat>
     </div>
 </template>
 <script>
 import navbar from '../../components/navbar.vue'
+import chat from '../../components/chat.vue'
     export default{
         name:'userPage',
         components:{
-            navbar
+            navbar,
+            chat
         },
         created(){
             this.$http({

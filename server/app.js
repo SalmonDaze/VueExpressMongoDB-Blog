@@ -24,6 +24,9 @@ app.use(cookieParser())
 
 io.on('connection',function(socket){
     console.log('a user connected')
+    socket.on('msg',(val)=>{
+        console.log(val)
+    })
 })
 app.use('/',index)
 app.use('/admin',admin)
