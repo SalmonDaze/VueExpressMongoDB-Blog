@@ -22,12 +22,23 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
+let userSocket = {}
 io.on('connection',function(socket){
+
     console.log('a user connected')
     socket.on('msg',(val)=>{
         console.log(val)
     })
+    socket.on('new user',(username)=>{
+        socket.username = username
+        userSocket[username] = socket
+    })
+    socket.on('send message',(res)=>{
+        console.log(userSocket)
+        //userSocket[res.recipient].emit('recevieMessage',res)
+    })
 })
+
 app.use('/',index)
 app.use('/admin',admin)
 

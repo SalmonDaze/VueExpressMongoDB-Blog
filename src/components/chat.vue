@@ -6,7 +6,7 @@
             </div>
             <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="message">
             </el-input>
-             <el-button type="primary" style='float:left;margin-top:10px;'>发送</el-button>
+             <el-button type="primary" style='float:left;margin-top:10px;' @click='sendMessage()'>发送</el-button>
         </div>
         <div class='target_info'>
             <img :src="avatar">
@@ -23,10 +23,29 @@
 <script>
     export default{
         name:'chat',
-        props:['avatar','name'],
+        props:['avatar','name','recipient'],
         data(){
             return{
                 message:'',
+            }
+        },
+        mounted(){
+                this.$socket.emit('new user',this.$store.username)
+        },
+        methods:{
+            sendMessage(){
+                let message = this.message
+                let req = {
+                    message:message,
+                    sender:this.$store.username,
+                    recipient:this.recipient,
+                }
+                this.$socket.emit('send message',req)
+            }
+        },
+        sockets:{
+            reciveMessage:function(val){
+                console.log(val)
             }
         }
     }
