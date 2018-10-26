@@ -63,7 +63,7 @@
           </el-container>
       </el-col>
     </el-row>
-    
+    <button @click='clickBtn()'>qqqqqqqqqqqqqq</button>
   </div>
 </template>
 
@@ -137,6 +137,14 @@ export default {
         this.$store.commit('init')
       })
     },
+    clickBtn(){
+      this.$socket.emit('msg','123')
+    }
+    },
+    sockets:{
+      connect:function(){
+        console.log('socket connected')
+      }
     }
   }
 </script>
