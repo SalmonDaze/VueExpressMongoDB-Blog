@@ -59,6 +59,7 @@
               <span><router-link :to="{name:'userPage',params:{id:userCookie.username}}">个人页面</router-link></span>
               <span v-if='userCookie.isAdmin' style='margin-left:30px;'><router-link :to="{path:'/admin/info'}">管理页面</router-link></span>
               <span><a style='margin-left:30px;' @click='logout'>用户登出</a></span>
+              <a style='margin-left:30px;'><span>发起聊天</span></a>
             </el-main>
           </el-container>
       </el-col>

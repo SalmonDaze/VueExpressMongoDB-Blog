@@ -34,7 +34,10 @@ io.on('connection',function(socket){
         userSocket[username] = socket
     })
     socket.on('send message',(res)=>{
-        console.log(userSocket)
+        console.log(res.recipient in userSocket)
+        if(res.recipient in userSocket){
+            userSocket[res.recipient].emit('receiveMessage',res)
+        }
         //userSocket[res.recipient].emit('recevieMessage',res)
     })
 })

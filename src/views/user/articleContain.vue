@@ -37,7 +37,8 @@
                             <div v-for='comment in commentList' :key='comment.create_at' style='margin-top:20px;text-align:left;margin-left:140px;'>
                                 <div style='margin-bottom:5px;'>
                                     <img :src="comment.avatar" class='avatar'>
-                                    <span style='color:#67C23A;font-size:1.2em;margin-left:10px;'>{{comment.username}}</span><span v-if='comment.username ==  name ' style='font-size:0.9em;margin-left:5px;color:#409EFF;'>作者</span><span style='margin-left:6px;font-size:0.9em;'>发表:</span>
+                                    <router-link :to="{name:'userPage',params:{id:comment.username}}"><span style='color:#67C23A;font-size:1.2em;margin-left:10px;'>{{comment.username}}</span></router-link><span v-if='comment.username ==  name ' style='font-size:0.9em;margin-left:5px;color:#409EFF;'>作者</span><span style='margin-left:6px;font-size:0.9em;'>发表:</span>
+                                    
                                 </div>
                                 <br/>
                                 <div style='line-height:25px;margin-right:100px;'>
@@ -52,7 +53,6 @@
                             </div>
                         </div>
                         <div style='width:80%;margin-left:130px;'>
-                            
                             <el-input type="textarea" :rows="6" :placeholder="textarea_msg" v-model='comment' style='margin-top:30px;' :disabled="btnswitch">
                                 <div class='zhezhao'></div>
                             </el-input>

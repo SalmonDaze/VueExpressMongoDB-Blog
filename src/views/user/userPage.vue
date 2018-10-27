@@ -28,8 +28,7 @@
             </template>
         </div>
         
-            <chat :name='user.username' :avatar='`http://pgq3wq57e.bkt.clouddn.com/${user.avatar_key}`' :recipient="user.username">
-
+            <chat :name='user.username' :avatar='`http://pgq3wq57e.bkt.clouddn.com/${user.avatar_key}`' :recipient="user.username" :sender='this.$store.username'>
             </chat>
     </div>
 </template>

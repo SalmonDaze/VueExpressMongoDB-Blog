@@ -20,6 +20,7 @@ Vue.use(ElementUI)
 Vue.use(VueQuillEditor)
 Vue.component('vue-draggable-resizable',VueDraggableResizable)
 
+
 new Vue({
   router,
   store,

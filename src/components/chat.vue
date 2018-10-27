@@ -1,8 +1,19 @@
 <template>
     <div class='chat_box'>
         <div class='message_contain'>
-            <div class='message'>
-
+            <div class='message' style='overflow:auto;'>
+                <div v-for='msg in messageList' :key='msg.nowDate' style='margin-top:20px;margin-left:10px;margin-right:10px;'>
+                    <div style='text-align:left;' v-if='msg.receive'>
+                        <img :src="msg.avatar" style='width:50px;height:50px;border-radius:100px;vertical-align:middle;'>
+                        <span style='margin-left:10px;font-size:1.1em;background:#EBEEF5;padding:5px 10px 5px 10px;border-radius:10px;'>{{msg.message}}</span>
+                        <br/>
+                    </div>
+                    <div style='text-align:right;' v-else>
+                        <span style='margin-right:10px;font-size:1.2em;background:#67C23A;padding:5px 10px 5px 10px;border-radius:10px;'>{{msg.message}}</span>
+                        <img :src="msg.avatar" style='width:50px;height:50px;border-radius:100px;vertical-align:middle;'>
+                        <br/>
+                    </div>
+                </div>
             </div>
             <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="message">
             </el-input>
@@ -23,29 +34,50 @@
 <script>
     export default{
         name:'chat',
-        props:['avatar','name','recipient'],
+        props:['avatar','name','recipient','sender'],
         data(){
             return{
                 message:'',
+                messageList:[],
             }
         },
         mounted(){
-                this.$socket.emit('new user',this.$store.username)
+                this.$socket.emit('new user',this.sender)
         },
         methods:{
             sendMessage(){
+                let that = this
                 let message = this.message
+                let nowDate = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`
                 let req = {
                     message:message,
                     sender:this.$store.username,
                     recipient:this.recipient,
                 }
+                this.messageList.push({
+                        date:nowDate,
+                        message:message,
+                        sender:that.$store.username,
+                        recipient:this.recipient,
+                        avatar:that.$store.avatar,
+                        receive:false
+                    })
                 this.$socket.emit('send message',req)
             }
         },
         sockets:{
-            reciveMessage:function(val){
-                console.log(val)
+            receiveMessage:function(res){
+                let nowDate = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`
+                if(res.recipient == this.$store.username){
+                    this.messageList.push({
+                        date:nowDate,
+                        message:res.message,
+                        sender:res.sender,
+                        recipient:res.recipient,
+                        receive:true,
+                        avatar:res.avatar,
+                    })
+                }
             }
         }
     }
