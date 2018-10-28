@@ -73,6 +73,10 @@
         ├── .eslintrc.js		// eslint的配置文件
         ├── vue.config.js		// vue-cli 3.0项目配置文件
 
+### 演示图片
+
+![avatar](https://raw.githubusercontent.com/SalmonDaze/VueExpressMongoDB-Blog/master/images/front.jpg)
+
 ### 结语
 
 总体来说此项目有些功能并不完善，比如用户登陆为基于Cookie的验证，后端并没有用上mongoose的populate的关系查询等等，
