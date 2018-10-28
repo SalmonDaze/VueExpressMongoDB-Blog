@@ -79,7 +79,6 @@ export default{
         async reviseArticle(){
             let title = this.title
             let content = this.content
-            let radio = this.radio
             let category = this.category
             if( title == '' || content == '' ){
                 this.$message({

@@ -1,5 +1,6 @@
 <template>
     <div class='chat_box'>
+        <slot name='close'></slot>
         <div class='message_contain'>
             <div class='message' style='overflow:auto;'>
                 <div v-for='msg in messageList' :key='msg.nowDate' style='margin-top:20px;margin-left:10px;margin-right:10px;'>
@@ -34,7 +35,7 @@
 <script>
     export default{
         name:'chat',
-        props:['avatar','name','recipient','sender'],
+        props:['avatar','name','recipient','sender','show'],
         data(){
             return{
                 message:'',
@@ -53,6 +54,7 @@
                     message:message,
                     sender:this.$store.username,
                     recipient:this.recipient,
+                    avatar:that.$store.avatar,
                 }
                 this.messageList.push({
                         date:nowDate,
@@ -68,6 +70,7 @@
         sockets:{
             receiveMessage:function(res){
                 let nowDate = `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`
+                console.log(res)
                 if(res.recipient == this.$store.username){
                     this.messageList.push({
                         date:nowDate,
@@ -93,6 +96,15 @@
     z-index: 99999;
     left:350px;
     top: 50px;
+    .close{
+        float:right;
+        font-size:2em;
+        margin-right:20px;
+        margin-top:10px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
     .message_contain{
         margin-left:40px;
         width:550px;

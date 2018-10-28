@@ -1,10 +1,30 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <div class='send_message'>
+      <el-button @click='checkname'>发送消息</el-button>
+    </div>
+    <chat v-if='sw' :sender='sender' :recipient="recipient" :avatar='target_avatar' :name='recipient'>
+      <template slot='close'><span class='close' @click='sw = !sw'><i class='el-icon-close'></i></span></template>
+    </chat>
   </div>
 </template>
 <script>
+import chat from './components/chat.vue'
   export default{
+    components:{
+      chat,
+      
+    },
+    data(){
+      return{
+        sw:false,
+        target_avatar:'',
+        sender:'',
+        recipient:'',
+        chat_show:true,
+      }
+    },
     created(){
       this.$http({
       method:'GET',
@@ -21,6 +41,39 @@
         }
       }
     })
+    },
+    mounted(){
+    },
+    methods:{
+      checkname(){
+        this.$prompt('请输入用户名', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+        }).then(({ value }) => {
+          this.$http({
+            method:'POST',
+            url:'/getUserInformation',
+            headers:{
+              'Content-Type' : 'application/x-www-form-urlencoded'
+            },
+            data:{
+              username:value,
+            }
+          }).then((res)=>{
+            console.log(res)
+            if(!res.data.user || value == this.$store.username){
+              this.$message.error('请输入正确用户信息！')
+            }else{
+              this.recipient = res.data.user.username
+              this.target_avatar = `http://pgq3wq57e.bkt.clouddn.com/${res.data.user.avatar_key}`
+              this.sender = this.$store.username
+              this.sw = !this.sw
+            }
+          })
+        }).catch(err=>{
+          this.$message.error('取消输入')
+        })
+      }
     }
   }
 </script>
@@ -42,4 +95,14 @@
     }
   }
 }
+.send_message{
+  .el-button{
+  position:fixed;
+  width:150px;
+  height: 50px;
+  top:900px;
+  right:150px;
+}
+}
+
 </style>
