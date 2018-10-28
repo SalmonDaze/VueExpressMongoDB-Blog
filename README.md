@@ -48,30 +48,30 @@
 - [ ] 按文章类别分类
 
 ### 目录结构
-├── config			// 项目dev和prod环境的配置
-├── dist			// 项目build打包之后的目录
-├── node_modules		// 项目依赖包
-├── package.json		// 项目描述文件
-├── public  			// 项目HTML挂载入口
-├── server			    // 后端目录
-│   ├── data				// 数据库引入及实例化数据模型文件
-│   ├── node_modules			// 后端项目依赖
-│   ├── routes    			    // 后端路由
-│   └── app.js			// 后端项目入口文件
-├── src					// 前端目录
-│   ├── assets				// 资源目录
-│   ├── components			// 项目组件
-│   ├── views			    // 项目视图组件
-│   ├── router				// Vue路由
-│   ├── store				// Vuex状态管理
-│   ├── App.vue				// 主页面 
-│   └── main.js				// Webpack 预编译入口
-├── static			    // 静态资源目录
-├── .babelrc			// ES6等babel的一些配置
-├── .editorconfig		// 编辑器的一些配置
-├── .eslintignore		// 忽略语法检查的目录文件，一般是忽略build和config目录
-├── .eslintrc.js		// eslint的配置文件
-├── vue.config.js		// vue-cli 3.0项目配置文件
+        ├── config			// 项目dev和prod环境的配置
+        ├── dist			// 项目build打包之后的目录
+        ├── node_modules		// 项目依赖包
+        ├── package.json		// 项目描述文件
+        ├── public  			// 项目HTML挂载入口
+        ├── server			    // 后端目录
+        │   ├── data				// 数据库引入及实例化数据模型文件
+        │   ├── node_modules			// 后端项目依赖
+        │   ├── routes    			    // 后端路由
+        │   └── app.js			// 后端项目入口文件
+        ├── src					// 前端目录
+        │   ├── assets				// 资源目录
+        │   ├── components			// 项目组件
+        │   ├── views			    // 项目视图组件
+        │   ├── router				// Vue路由
+        │   ├── store				// Vuex状态管理
+        │   ├── App.vue				// 主页面 
+        │   └── main.js				// Webpack 预编译入口
+        ├── static			    // 静态资源目录
+        ├── .babelrc			// ES6等babel的一些配置
+        ├── .editorconfig		// 编辑器的一些配置
+        ├── .eslintignore		// 忽略语法检查的目录文件，一般是忽略build和config目录
+        ├── .eslintrc.js		// eslint的配置文件
+        ├── vue.config.js		// vue-cli 3.0项目配置文件
 
 ### 结语
 
