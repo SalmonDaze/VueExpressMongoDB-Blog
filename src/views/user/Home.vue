@@ -10,12 +10,6 @@
       <el-col :span="2"></el-col>
       <el-col :span="14">
         <div id='article'>
-            <el-menu class="el-menu-demo" mode="horizontal">
-                <el-menu-item index="1">全部 ({{allArticleCount}})</el-menu-item>
-                <el-menu-item index="2">个人随笔 ({{SuibiCount}})</el-menu-item>
-                <el-menu-item index="3">技术分享 ({{JishuCount}})</el-menu-item>
-                <el-menu-item index="4">实事杂谈 ({{ShishiCount}})</el-menu-item>
-            </el-menu>
             <div v-if='articleList.length == 0' class='none_article'>
               当前无内容
             </div>
@@ -59,7 +53,6 @@
               <span><router-link :to="{name:'userPage',params:{id:userCookie.username}}">个人页面</router-link></span>
               <span v-if='userCookie.isAdmin' style='margin-left:30px;'><router-link :to="{path:'/admin/info'}">管理页面</router-link></span>
               <span><a style='margin-left:30px;' @click='logout'>用户登出</a></span>
-              <a style='margin-left:30px;'><span>发起聊天</span></a>
             </el-main>
           </el-container>
       </el-col>
@@ -79,10 +72,6 @@ export default {
   data(){
     return{
       userCookie:'',
-      allArticleCount:0,
-      SuibiCount:0,
-      JishuCount:0,
-      ShishiCount:0,
       title:'',
       content:'',
       articleList:[],

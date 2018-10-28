@@ -10,13 +10,13 @@ export default new Vuex.Store({
     isLogin:false,
   },
   mutations: {
-    init(){
-      this.username = '',
-      this.avatar = '',
+    init(state){
+      state.username = '',
+      state.avatar = '',
       sessionStorage.removeItem('username')
       sessionStorage.removeItem('avatar')
       sessionStorage.removeItem('isLogin')
-      this.isLogin = false
+      state.isLogin = false
     },
     add_login_user(state,payload){
       state.username = payload.username

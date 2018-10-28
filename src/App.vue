@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <div class='send_message'>
+    <div class='send_message' v-show='chat_show'>
       <el-button @click='checkname'>发送消息</el-button>
     </div>
     <chat v-if='sw' :sender='sender' :recipient="recipient" :avatar='target_avatar' :name='recipient'>
@@ -10,6 +10,7 @@
   </div>
 </template>
 <script>
+import {mapState,mapMutations} from 'vuex'
 import chat from './components/chat.vue'
   export default{
     components:{
@@ -22,7 +23,7 @@ import chat from './components/chat.vue'
         target_avatar:'',
         sender:'',
         recipient:'',
-        chat_show:true,
+        chat_show:false,
       }
     },
     created(){
@@ -41,6 +42,7 @@ import chat from './components/chat.vue'
         }
       }
     })
+      this.chat_show = this.$store.state.username ? true : false
     },
     mounted(){
     },
@@ -73,6 +75,14 @@ import chat from './components/chat.vue'
         }).catch(err=>{
           this.$message.error('取消输入')
         })
+      }
+    },
+    computed:mapState([
+      'username'
+    ]),
+    watch:{
+      username: function(val){
+        this.chat_show = val ? true : false
       }
     }
   }

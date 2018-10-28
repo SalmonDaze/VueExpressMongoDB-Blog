@@ -77,10 +77,10 @@ export default {
           avatar:`http://pgq3wq57e.bkt.clouddn.com/${res.data.user.avatar_key}`
         })
         this.$message({
-          message: '登录成功！页面将于3秒后跳转',
+          message: '登录成功！',
           type: 'success'
         })
-        setTimeout(()=>{this.$router.push({path:'/'})},3000)
+        this.$router.push({path:'/'})
       }
         }catch(err){
           console.log('Server Error Message :' + err)
