@@ -74,8 +74,9 @@
         ├── vue.config.js		// vue-cli 3.0项目配置文件
 
 ### 演示图片
-
 ![avatar](https://raw.githubusercontent.com/SalmonDaze/VueExpressMongoDB-Blog/master/images/front.jpg)
+![avatar](https://raw.githubusercontent.com/SalmonDaze/VueExpressMongoDB-Blog/master/images/back.jpg)
+![avatar](https://raw.githubusercontent.com/SalmonDaze/VueExpressMongoDB-Blog/master/images/userpage.jpg)
 
 ### 结语
 
