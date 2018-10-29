@@ -118,6 +118,10 @@ import navbar from '../../components/navbar.vue'
             },
             upvote(){
                 let id = this.$route.params.id
+                if(!this.$store.state.username){
+                    this.$message.error('请先登陆！')
+                    return
+                }
                 this.$http({
                     url:'http://localhost:3000/upvote',
                     method:'POST',
