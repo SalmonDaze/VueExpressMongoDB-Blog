@@ -39,7 +39,7 @@
                 document.getElementsByClassName('drag_text')[0].style.color = '#fff'
                 document.getElementsByClassName('handler')[0].style.left = this.maxwidth + 'px';
                 document.getElementsByClassName('drag_bg')[0].style.width = this.maxwidth + 'px';
-            },                //验证成功函数
+            },                
             mouseMoveFn(e){
                 if(this.mouseMoveStata){
                     let width = e.clientX - this.beginClientX;
@@ -50,7 +50,7 @@
                         this.successFunction();
                     }
                 }
-            },                   //mousemove事件
+            },                   
             moseUpFn(e){
                 this.mouseMoveStata = false;
                 var width = e.clientX - this.beginClientX;
@@ -58,7 +58,7 @@
                     document.getElementsByClassName('handler')[0].style.left = 0 + 'px';
                     document.getElementsByClassName('drag_bg')[0].style.width = 0 + 'px';
                 }
-            }                       //mouseup事件
+            }                     
         },
         mounted(){
             this.maxwidth = this.$refs.dragDiv.clientWidth - this.$refs.moveDiv.clientWidth;
